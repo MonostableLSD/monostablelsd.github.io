@@ -1162,7 +1162,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #54ff59;
+  background: #6b901a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1383,9 +1383,10 @@ pre .javascript .function {
   }
 }
 .with-love {
-  color: #808080;
+  color: #005CAF;
   display: inline-block;
   margin: 0 5px;
+  animation: iconAnimate 1.33s ease-in-out infinite;
 }
 .powered-by,
 .theme-info {
