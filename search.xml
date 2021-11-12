@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>所有的第一次总是不那么美好</title>
+    <url>/archives/a00599b5.html</url>
+    <content><![CDATA[<p>就像一个迷茫的“硬件”生第一次尝试使用Hexo记录自己的方方面面一样。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Hexo安装、配置与日常使用</title>
     <url>/archives/e12db737.html</url>
-    <content><![CDATA[<h2 id="安装-install"><a href="#安装-install" class="headerlink" title="安装 install"></a>安装 install</h2><h3 id="环境-env"><a href="#环境-env" class="headerlink" title="环境 env"></a>环境 env</h3><ul>
+    <content><![CDATA[<p>本站建立记录</p>
+<span id="more"></span>
+
+<h2 id="安装-install"><a href="#安装-install" class="headerlink" title="安装 install"></a>安装 install</h2><h3 id="环境-env"><a href="#环境-env" class="headerlink" title="环境 env"></a>环境 env</h3><ul>
 <li>Ubuntu20.04</li>
 </ul>
 <h3 id="预先准备-prerequisites"><a href="#预先准备-prerequisites" class="headerlink" title="预先准备 prerequisites"></a>预先准备 prerequisites</h3><ul>
@@ -62,19 +71,26 @@
 
 <h2 id="管理与日常使用"><a href="#管理与日常使用" class="headerlink" title="管理与日常使用"></a>管理与日常使用</h2><h3 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h3><p>我们使用github.io仓库的master分支来存储hexo生成的静态页面文件，开一个名为hexo的分支来存放博客原始文件，方便在其他电脑上更新博客时git clone下来使用。</p>
 <h3 id="日常使用"><a href="#日常使用" class="headerlink" title="日常使用"></a>日常使用</h3><ul>
+<li><p>更新博客</p>
+<ul>
 <li>安装git、node.js、hexo-cli</li>
 <li>下载github.io仓库的hexo分支</li>
 <li>hexo new post ‘name’</li>
 <li>hexo clean</li>
 <li>hexo g -d</li>
 </ul>
+</li>
+<li><p>更新配置与升级hexo</p>
+<ul>
+<li>git push -f</li>
+<li>npm update</li>
+</ul>
+</li>
+</ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>所有的第一次总是不那么美好</title>
-    <url>/archives/a00599b5.html</url>
-    <content><![CDATA[<p>就像一个迷茫的“硬件”生第一次尝试使用Hexo记录自己的方方面面一样。</p>
-]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title>裸机多任务的一些摸索</title>
