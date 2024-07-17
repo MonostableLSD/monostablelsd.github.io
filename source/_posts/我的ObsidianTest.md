@@ -9,8 +9,10 @@ updated: 2024-07-17 21:45:49
 testtest
 
 image test
+![](我的ObsidianTest/image-20240717220627613.png)
 
-![](我的ObsidianTest/image-20240717215834232.png)
+
+
 
 
 
