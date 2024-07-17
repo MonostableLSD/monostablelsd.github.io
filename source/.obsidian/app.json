@@ -1,0 +1,13 @@
+{
+  "userIgnoreFilters": [
+    "about/",
+    "categories/",
+    "images/",
+    "tags/"
+  ],
+  "newFileLocation": "folder",
+  "newFileFolderPath": "_posts",
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative",
+  "attachmentFolderPath": "./我的ObsidianTest"
+}

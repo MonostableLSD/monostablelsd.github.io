@@ -1,0 +1,184 @@
+{
+  "main": {
+    "id": "99e3b6f808d305c7",
+    "type": "split",
+    "children": [
+      {
+        "id": "a7ab45c22d37d937",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9c25439efd8da8f5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/裸机多任务的一些摸索.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "0825c0b17bdb129d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/我的ObsidianTest.md",
+                "mode": "source",
+                "source": true
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "de9fb173dc251a1b",
+    "type": "split",
+    "children": [
+      {
+        "id": "c5bbdcb91bf18db0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "17b1e279ece59dcd",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "279d63134f2db5de",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "7b2a5a9081353eae",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "0cc8e8e5e855edc3",
+    "type": "split",
+    "children": [
+      {
+        "id": "ec1b9b5ba3faefbc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "58e1ee74a5aaf69d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "_posts/我的ObsidianTest.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "4655a418bc2402a2",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "_posts/我的ObsidianTest.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d13bf711642cfb37",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "a712a0f98dc2e5ad",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "_posts/我的ObsidianTest.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "templater-obsidian:Templater": false
+    }
+  },
+  "active": "0825c0b17bdb129d",
+  "lastOpenFiles": [
+    "_template/tp-hexo-post-init.md",
+    "_posts/我的ObsidianTest.md",
+    "_template/tp-hexo-post-init.txt",
+    "_template/tp-.txt",
+    "_template/新建文本文档.txt",
+    "_template/新建文件夹",
+    "_template/未命名.md",
+    "_posts/裸机多任务的一些摸索.md",
+    "about/index.md",
+    "_posts/Init.md",
+    "_template",
+    "_posts/Hexo.md",
+    "_draft/draft/未命名.md",
+    "_draft/template/tp-hexo-post-init",
+    "_draft/template/新建文本文档.txt",
+    "_draft/template/新建文件夹",
+    "_draft/template",
+    "_draft/新建文件夹"
+  ]
+}
