@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - hexo
+env:
+  GIT_USER: aemaeth
+  GIT_EMAIL: monostablelss@gmail.com
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,11 +27,17 @@ jobs:
         run: |
           npm install && npm run build
 
+      - name: Configuration environment
+        env:
+          HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name $GIT_USER
+          git config --global user.email $GIT_EMAIL
+
       - name: Deploy
         run: |
           npm run deploy
-        # uses: JamesIves/github-pages-deploy-action@releases/v3
-        # with:
-        #   REPOSITORY_NAME: MonostableLSD/monostablelsd.github.io
-        #   BRANCH: master
-        #   FOLDER: public
