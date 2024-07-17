@@ -18,21 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "b125ac18676bbe96",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/ObsidianImageTest.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/ObsidianImageTest.md",
+                "file": "_posts/我的ObsidianTest.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/ObsidianImageTest.md",
+                "file": "_posts/我的ObsidianTest.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/ObsidianImageTest.md"
+                "file": "_posts/我的ObsidianTest.md"
               }
             }
           }
@@ -160,12 +147,13 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "b125ac18676bbe96",
+  "active": "9c25439efd8da8f5",
   "lastOpenFiles": [
+    "_posts/我的ObsidianTest/image-20240717232152717.png",
+    "_posts/ObsidianImageTest.md",
     "_posts/ObsidianImageTest/image-20240717220727869.png",
     "_posts/ObsidianImageTest",
     "_posts/我的ObsidianTest.md",
-    "_posts/ObsidianImageTest.md",
     "_posts/我的ObsidianTest/image-20240717220627613.png",
     "_posts/我的ObsidianTest",
     "_posts/裸机多任务的一些摸索.md",
