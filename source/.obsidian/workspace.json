@@ -30,9 +30,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "349fcb7cbf8ea985",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/Test3.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -98,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/Test2.md",
+                "file": "_posts/Test3.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/Test2.md",
+                "file": "_posts/Test3.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/Test2.md"
+                "file": "_posts/Test3.md"
               }
             }
           }
@@ -160,12 +172,15 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "458f1d657caca859",
+  "active": "349fcb7cbf8ea985",
   "lastOpenFiles": [
+    "_posts/Test3/image-20240718010302426.png",
+    "_posts/Test3",
+    "_posts/Test2.md",
+    "_posts/Test3.md",
     "_posts/Test2/image-20240718002600516.png",
     "_posts/Test2",
     "_posts/我的ObsidianTest.md",
-    "_posts/Test2.md",
     "_posts/Init.md",
     "_posts/Hexo.md",
     "_posts/裸机多任务的一些摸索.md",
@@ -186,7 +201,6 @@
     "about/index.md",
     "_template",
     "_draft/draft/未命名.md",
-    "_draft/template/tp-hexo-post-init",
-    "_draft/template/新建文本文档.txt"
+    "_draft/template/tp-hexo-post-init"
   ]
 }
