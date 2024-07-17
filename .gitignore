@@ -4,6 +4,7 @@ db.json
 *.log
 node_modules/
 .deploy*/
+public/
 # Ignore Smart Connections folder because embeddings file is large and updated frequently
 .smart-connections
 .trash

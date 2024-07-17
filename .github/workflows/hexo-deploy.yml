@@ -23,8 +23,10 @@ jobs:
           npm install && npm run build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          REPOSITORY_NAME: MonostableLSD/monostablelsd.github.io
-          BRANCH: master
-          FOLDER: public
+        run: |
+          npm run deploy
+        # uses: JamesIves/github-pages-deploy-action@releases/v3
+        # with:
+        #   REPOSITORY_NAME: MonostableLSD/monostablelsd.github.io
+        #   BRANCH: master
+        #   FOLDER: public
