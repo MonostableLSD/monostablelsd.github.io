@@ -27,7 +27,7 @@
               "state": {
                 "file": "_posts/我的ObsidianTest.md",
                 "mode": "source",
-                "source": true
+                "source": false
               }
             }
           }
@@ -162,6 +162,8 @@
   },
   "active": "0825c0b17bdb129d",
   "lastOpenFiles": [
+    "_posts/我的ObsidianTest/image-20240717215101343.png",
+    "_posts/我的ObsidianTest",
     "_template/tp-hexo-post-init.md",
     "_posts/我的ObsidianTest.md",
     "_template/tp-hexo-post-init.txt",
@@ -178,7 +180,6 @@
     "_draft/template/tp-hexo-post-init",
     "_draft/template/新建文本文档.txt",
     "_draft/template/新建文件夹",
-    "_draft/template",
-    "_draft/新建文件夹"
+    "_draft/template"
   ]
 }
