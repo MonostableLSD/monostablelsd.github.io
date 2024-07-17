@@ -5,8 +5,6 @@ db.json
 node_modules/
 public/
 .deploy*/
-_scaffolds/
-_posts/
 # Ignore Smart Connections folder because embeddings file is large and updated frequently
 .smart-connections
 .obsidian

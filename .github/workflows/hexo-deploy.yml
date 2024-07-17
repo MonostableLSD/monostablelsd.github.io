@@ -1,0 +1,24 @@
+name: Hexo Deploy
+on:
+  push:
+    branches:
+      - hexo
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: |
+          npm install && npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          REPOSITORY_NAME: MonostableLSD/monostablelsd.github.io
+          BRANCH: master
+          FOLDER: public
