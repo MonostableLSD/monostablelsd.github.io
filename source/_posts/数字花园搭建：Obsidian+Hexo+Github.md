@@ -605,7 +605,7 @@ marked:
 ### Obsidian Git
 安装[Git](https://github.com/Vinzent03/obsidian-git)插件，按Ctrl+P，输入commit all change+push提交博客，自动发布
 
-## Step 3：日常管理
+# Step 3：日常管理
 经过如上一番操作，日常情况就可以抛弃nodejs，在某处的新电脑上，可以先配置好git、下载好obsidian，就可以开始更新博客了！
   
 
