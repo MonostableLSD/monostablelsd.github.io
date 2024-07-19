@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "365dcb8f536e10e7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/芯片设计公司的嵌入式软件都在干什么.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/数字花园搭建：Obsidian+Hexo+Github.md",
+                "file": "_posts/芯片设计公司的嵌入式软件都在干什么.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/数字花园搭建：Obsidian+Hexo+Github.md",
+                "file": "_posts/芯片设计公司的嵌入式软件都在干什么.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/数字花园搭建：Obsidian+Hexo+Github.md"
+                "file": "_posts/芯片设计公司的嵌入式软件都在干什么.md"
               }
             }
           }
@@ -147,22 +160,27 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "9c25439efd8da8f5",
+  "active": "365dcb8f536e10e7",
   "lastOpenFiles": [
+    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719180232126.png",
+    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719150541081.png",
+    "_posts/数字花园搭建：Obsidian+Hexo+Github.md",
+    "_posts/芯片设计公司的嵌入式软件都在干什么.md",
+    "_posts/裸机多任务的一些摸索.md",
+    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719105006239.png",
+    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240718165441091.png",
+    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719002019629.png",
+    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719001354190.png",
+    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240718163942629.png",
+    "_posts/芯片设计公司的嵌入式软件都在干什么",
+    "_posts/未命名.md",
+    "_template/tp-hexo-post-init.md",
+    "about/index.md",
+    "categories/index.md",
     "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718133530799.png",
     "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718133428037.png",
     "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718133303105.png",
     "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718133204629.png",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718133132518.png",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718132258384.png",
-    "_posts/未命名.md",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github.md",
-    "_template/tp-hexo-post-init.md",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718131735074.png",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718131628988.png",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718125151815.png",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718125025674.png",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718124628093.png",
     "_posts/数字花园搭建：Obsidian+Hexo+Github",
     "_posts/Test3.md",
     "_posts/Test3",
@@ -170,7 +188,6 @@
     "_posts/Test2",
     "_posts/我的ObsidianTest.md",
     "_posts/Init.md",
-    "_posts/裸机多任务的一些摸索.md",
     "_posts/ObsidianImageTest.md",
     "_posts/ObsidianImageTest",
     "_posts/我的ObsidianTest",
@@ -179,8 +196,6 @@
     "_template/新建文本文档.txt",
     "_template/新建文件夹",
     "_template/未命名.md",
-    "about/index.md",
-    "_template",
     "_draft/draft/未命名.md"
   ]
 }

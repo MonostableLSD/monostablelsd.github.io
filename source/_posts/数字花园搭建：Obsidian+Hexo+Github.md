@@ -1,11 +1,13 @@
 ---
 title: 数字花园搭建：Obsidian+Hexo+Github
-abbrlink: e12db737
-date: 2024-07-18 09:57:48
+categories:
+  - 博客搭建
 tags:
   - hexo
   - github
   - obsidian
+abbrlink: e12db737
+date: 2024-07-18 09:57:48
 ---
 ![](数字花园搭建：Obsidian+Hexo+Github/image-20240718101929351.png)
 之前发布hexo博客需要在安装了nodejs的电脑上反复执行hexo g & hexo d，并且想要换台电脑就变得很麻烦，这次请Github Action代劳，于是除了第一次搭建需要本地deploy预览效果以外，其余时刻我可以抛弃nodejs只传输markdown文件，并且编辑端换上了更好用的Obsidian，快来和我一起搭建数字花园！
