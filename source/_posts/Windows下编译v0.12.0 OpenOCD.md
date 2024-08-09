@@ -9,6 +9,9 @@ mathjax: true
 date: 2024-08-09 15:01:42
 updated: 2024-08-09 15:01:42
 ---
+在研究JTAG的过程中，需要使用daplink生成jtag master的波形给jtag ip，因此研究了一下openocd+daplink，不得不吐槽openocd这个项目真是一言难尽，记录一下Windows环境下编译openocd的过程。我发现如果用公司加密电脑，很有可能遇到不过编译器检查，这一步会生成一个conftest.c并尝试编译它来验证编译器是否ok，但是这个生成的会被加密软件加锁，导致fail，所以把这个坑分享出来。
+
+<!-- more -->
 # 安装Msys2+工具链
 https://www.msys2.org/ 下载安装包并安装 一路next即可 注意打开 Mingw64这个shell
 ![](Windows下编译v0.12.0%20OpenOCD/image-20240809150331331.png)
