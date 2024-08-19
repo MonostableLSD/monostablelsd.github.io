@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/net-logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/net-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/net-logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"aemaeth0.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="芯片产业分为设计、制造、封装三大流程，在封装后还会进行量产测试，因此又称为封测流程。今年上半年我在公司负责ASIC SOC的量产测试工程，这里总结一下项目流程，以便日后项目参考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="芯片量产测试流程介绍">
+<meta property="og:url" content="https://aemaeth0.xyz/archives/3bc29a18.html">
+<meta property="og:site_name" content="Aemaeth0&#39;s Notes">
+<meta property="og:description" content="芯片产业分为设计、制造、封装三大流程，在封装后还会进行量产测试，因此又称为封测流程。今年上半年我在公司负责ASIC SOC的量产测试工程，这里总结一下项目流程，以便日后项目参考。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/3bc29a18/image-20240819162153805.jpeg">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/3bc29a18/image-20240819170723279.png">
+<meta property="article:published_time" content="2024-08-19T08:23:05.000Z">
+<meta property="article:modified_time" content="2024-08-19T08:23:05.000Z">
+<meta property="article:author" content="Aemaeth0">
+<meta property="article:tag" content="IC">
+<meta property="article:tag" content="CP">
+<meta property="article:tag" content="FT">
+<meta property="article:tag" content="ATE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aemaeth0.xyz/archives/3bc29a18/image-20240819162153805.jpeg">
+
+
+<link rel="canonical" href="https://aemaeth0.xyz/archives/3bc29a18.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://aemaeth0.xyz/archives/3bc29a18.html","path":"archives/3bc29a18.html","title":"芯片量产测试流程介绍"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>芯片量产测试流程介绍 | Aemaeth0's Notes</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Aemaeth0's Notes</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple & Stay Naive</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Step0-%E6%94%B6%E9%9B%86%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">Step0 收集产品信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Step1-%E5%88%B6%E5%AE%9ATest-Plan"><span class="nav-number">2.</span> <span class="nav-text">Step1 制定Test Plan</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Continuity-Test"><span class="nav-number">2.1.</span> <span class="nav-text">Continuity Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DC-Test"><span class="nav-number">2.2.</span> <span class="nav-text">DC Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gross-Function-Test-IP-Test"><span class="nav-number">2.3.</span> <span class="nav-text">Gross Function Test &#x2F; IP Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Function-Test"><span class="nav-number">2.4.</span> <span class="nav-text">Function Test</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Step2-%E5%87%86%E5%A4%87%E7%A1%AC%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">Step2 准备硬件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%BA%E5%8F%B0%E9%80%89%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">机台选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%A1%AC%E4%BB%B6%E5%88%B6%E9%80%A0%E5%A4%96%E5%8F%91"><span class="nav-number">3.2.</span> <span class="nav-text">测试硬件制造外发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E6%B2%BB%E5%85%B7%E5%AE%9A%E5%88%B6"><span class="nav-number">3.3.</span> <span class="nav-text">特殊治具定制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Step3-offline%E7%BC%96%E5%86%99ATE%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">Step3 offline编写ATE测试程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2DFT-pattern"><span class="nav-number">4.1.</span> <span class="nav-text">转换DFT pattern</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0channel-list%E5%85%B3%E7%B3%BB"><span class="nav-number">4.2.</span> <span class="nav-text">实现channel list关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0Test-Plan%E5%88%B0ATE%E4%BB%A3%E7%A0%81"><span class="nav-number">4.3.</span> <span class="nav-text">实现Test Plan到ATE代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Step4-online%E5%AE%9E%E9%AA%8C%E5%AE%A4-%E5%B7%A5%E7%A8%8B%E6%89%B9%E8%B0%83%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">Step4 online实验室&#x2F;工程批调试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Step5-Release%E9%87%8F%E4%BA%A7"><span class="nav-number">6.</span> <span class="nav-text">Step5 Release量产</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Aemaeth0"
+      src="/images/hexo-avatar.png">
+  <p class="site-author-name" itemprop="name">Aemaeth0</p>
+  <div class="site-description" itemprop="description">EE,IC,Linux,C/C++,Control theory</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MonostableLSD" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MonostableLSD" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:monostablelss@gmail.com" title="E-Mail → mailto:monostablelss@gmail.com" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/images/weChat.png" title="WeChat → &#x2F;images&#x2F;weChat.png" rel="noopener me"><i class="fab fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/7564745" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;7564745" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fa fa-mars fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://aemaeth0.xyz/archives/3bc29a18.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hexo-avatar.png">
+      <meta itemprop="name" content="Aemaeth0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemaeth0's Notes">
+      <meta itemprop="description" content="EE,IC,Linux,C/C++,Control theory">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="芯片量产测试流程介绍 | Aemaeth0's Notes">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          芯片量产测试流程介绍
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-08-19 16:23:05" itemprop="dateCreated datePublished" datetime="2024-08-19T16:23:05+08:00">2024-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/IC%E5%B0%81%E6%B5%8B/" itemprop="url" rel="index"><span itemprop="name">IC封测</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><img src="/archives/3bc29a18/image-20240819162153805.jpeg" class="">
+<p>芯片产业分为设计、制造、封装三大流程，在封装后还会进行量产测试，因此又称为封测流程。今年上半年我在公司负责ASIC SOC的量产测试工程，这里总结一下项目流程，以便日后项目参考。</p>
+<span id="more"></span>
+
+<h1 id="Step0-收集产品信息"><a href="#Step0-收集产品信息" class="headerlink" title="Step0 收集产品信息"></a>Step0 收集产品信息</h1><p>大部分芯片产品的商业价值在底层逻辑上都是需要量产来兑现的。一般一个成熟的芯片项目，比如迭代产品，已经有明确量产的市场，那么应该在流片后就开始准备量产测试事宜，如果更赶，则应该在DFT设计确定后开始准备。对于市场不明确、预研性质较高的流片项目，则可以在Bringup后再考虑是否要做量产测试。</p>
+<p>在制定具体的Test Plan之前，量产测试工程师应该汇集各方信息，以全面了解DUT设计特性。具体来说，可以跟前端、后端、版图各方同事沟通，获取关于芯片制造的详细信息，汇集成一个表格，这个表格将帮助各方（包括外发供应商）对齐产品信息。</p>
+<p>通常要包括以下信息：</p>
+<ul>
+<li>基本信息：<ul>
+<li>产品型号（公用代号）</li>
+<li>产品类型 （消费级&#x2F;车规级&#x2F;…）</li>
+<li>应用领域</li>
+</ul>
+</li>
+<li>Wafer信息<ul>
+<li>Fab （e.g. TSMC 28nm）       </li>
+<li>尺寸 （8寸&#x2F;12寸）</li>
+<li>厚度</li>
+<li>gross die (一片wafer上总共多少die)</li>
+<li>die在wafer上的分布信息<ul>
+<li>die size with seal ring</li>
+<li>street size &#x2F;dicing width</li>
+<li>step number</li>
+<li>… (不同厂家的命名略有不同，可以拉后端&#x2F;厂家沟通)</li>
+</ul>
+</li>
+<li>die上信息<ul>
+<li>die 厚度</li>
+<li>pad 数量</li>
+<li>pad 尺寸</li>
+<li>pad 厚度</li>
+<li>pad 材质</li>
+<li>circuit under pad （pad下是否有电路）</li>
+<li>…</li>
+</ul>
+</li>
+<li>Wafer Map</li>
+<li>Pad Loacation</li>
+</ul>
+</li>
+<li>Package信息<ul>
+<li>封装方案&#x2F;工艺 （COB&#x2F;WB&#x2F;FCBGA&#x2F;….）</li>
+<li>不同封装工艺的Package信息有所不同，量产测试工程师应该多了解制造、封装工艺，这里以FCBGA举例</li>
+<li>Bump信息<ul>
+<li>Bump类型（Cu-Pillar&#x2F;Plating Solder）</li>
+<li>Bump pitch</li>
+<li>Bump 高度</li>
+<li>Bump 尺寸</li>
+<li>…</li>
+</ul>
+</li>
+<li>BGA Pad Location&#x2F; Pin Map</li>
+</ul>
+</li>
+</ul>
+<p>这个表格可以随项目推进继续补充信息。</p>
+<h1 id="Step1-制定Test-Plan"><a href="#Step1-制定Test-Plan" class="headerlink" title="Step1 制定Test Plan"></a>Step1 制定Test Plan</h1><p>测试工程师需要通过与Designer+DFT同事沟通后，制定一份Test Plan。Test Plan应该包含测试的condition描述、工程批次要收集的数据（e.g. ADC读数、shmoo图）、具体的Test Case。</p>
+<p>测试condition需要确认产品是否有需要调整温度、电压、光照等环境参数的测试需求，具体来说，是否需要做高低温测试？高低温要到多少度？跑Case的时候几路电源是否要调整电压？是否需要外部光源？这些都会影响到handler、机台等硬件的方案。</p>
+<p>另外对于某些不太成熟的模块，Designer可能会需要量产测试工程师在实验室或工程批调试时帮忙额外收集数据，比如一批芯片的ADC读数，作为一致性依据；又比如需要借助ATE工具获取产品各个case的shmoo图，以更全面了解产品的特性。</p>
+<p>接下来就是具体的Test Case，通常Test Case包含4个部分：</p>
+<ol>
+<li>Continuity Test</li>
+<li>DC Test</li>
+<li>Gross Function Test &#x2F; IP Test</li>
+<li>Function Test</li>
+</ol>
+<h2 id="Continuity-Test"><a href="#Continuity-Test" class="headerlink" title="Continuity Test"></a>Continuity Test</h2><p>为了首先确保机台到芯片的连接正常，通常最先要做Open Short开短路测试，要求量产测试工程师获取IO后端设计细节，是否每个pin提供对VSS对VDD保护二极管，包括电源管脚、模拟(adc&#x2F;phy)管脚、数字管脚。对于不同的设计要制定对应的OS方案。</p>
+<h2 id="DC-Test"><a href="#DC-Test" class="headerlink" title="DC Test"></a>DC Test</h2><p>可选：</p>
+<ol>
+<li>Gross IDD ：粗测芯片上电后功耗</li>
+<li>Static IDD ：load最低功耗pat，测试VDD电流</li>
+<li>Dynamic IDD ：load最高功耗pat，测试VDD电流</li>
+<li>Input Leakage Test (IIL&amp;IIH)：测量input pin 输入low情况下的漏电流</li>
+<li>Output Tristate Leakage Test (IOZL &amp; IOZH)：测量output pin置为高阻态时对应高低两种情况的漏电流</li>
+</ol>
+<p>要求量产测试工程师获取仿真信息&#x2F;Bringup EVB实测数据，获取上电流程细节+进入高低功耗模式的方法。通常漏电流会有仿真信息，IDD在EVB上会有参考值，具体要认识到不同模式下时钟树的状态。</p>
+<h2 id="Gross-Function-Test-IP-Test"><a href="#Gross-Function-Test-IP-Test" class="headerlink" title="Gross Function Test &#x2F; IP Test"></a>Gross Function Test &#x2F; IP Test</h2><p>复杂数字电路依赖DFT进行量产测试。要求量产测试工程师仔细阅读DFT设计文档，了解相关的测试原理，关注每一个DFTcase的如下信息：</p>
+<ol>
+<li>如何进入DFT mode</li>
+<li>DFT mode 下 pin remap到了哪里，重点关注DFT IJTAG与插入的时钟结构</li>
+<li>pattern中使用了哪些pad</li>
+<li>哪些pad作为异步、同步时钟，频率min max分别多少</li>
+<li>pattern执行的timing（DT0 DT1 CT0 CT1），pattern执行的频率</li>
+</ol>
+<p>对于复杂IP的DFT Test需要根据具体情况来处理：</p>
+<p>比如，USB3.0 ip具有ijtag直连进行bist内部测试以及bert外部回环测试的功能，需要阅读IP供应商文档来获取具体的硬件设计指标与ATE操作流程。根据需要可以选型具有高速IP功能的ATE机台，比如93K带有封装好的LVDS功能，可以用来专门测试复杂IP。</p>
+<h2 id="Function-Test"><a href="#Function-Test" class="headerlink" title="Function Test"></a>Function Test</h2><p>以上的测试基本可以覆盖数字电路部分以及PHY的部分，芯片上还会有一些数模混合的部分以及die外多chip封装的部分，具体来说，比如ADC、DAC模块，以及封装在一起的Flash芯片，这些通常需要进行功能测试来覆盖。与DFT进入DFT mode再测试不同，Function Test往往是让芯片进入正常的工作状态，通过JTAG&#x2F;SSPI等接口通过寄存器操作外设功能来进行测试。具体一个芯片项目要测哪些Function Test，要与Designer沟通确定方案细节。</p>
+<p>CP主要目的是为了检测Foundry的制造问题，FT主要目的是为了检测Package的制造问题，因此二者的Test Plan存在差异。比如CP阶段还没有封装Flash，自然没有Flash测试。另外CP扎针与FT Socket硬件连接上的电气参数也有不同，二者片上散热热阻也有不同，这些区别在特殊情况下也会引入Test Plan中进行不同的处理。</p>
+<p>以上就是基本的Test Plan结构，具体还是要看芯片，特殊的产品设计可能需要一些特殊的Test Plan，比如需要耦合CP&#x2F;FT流程，CP阶段的数据存进片内存储，FT再解出来使用。遇到特殊的Test Plan，需要仔细评估可行性，并且联系到硬件平台的spec，比较考验量产测试工程师的综合能力。</p>
+<h1 id="Step2-准备硬件"><a href="#Step2-准备硬件" class="headerlink" title="Step2 准备硬件"></a>Step2 准备硬件</h1><p>只有当Test Plan关键细节都确定好后，才能开始准备硬件的环节。根据Test Plan各个case的指标，要做以下硬件准备工作：</p>
+<ol>
+<li>ATE机台+资源板卡选型+确定site数</li>
+<li>ProbeCard&#x2F;LoadBoard+changkit+socket等硬件定制外发</li>
+<li>特殊治具定制</li>
+</ol>
+<h2 id="机台选型"><a href="#机台选型" class="headerlink" title="机台选型"></a>机台选型</h2><p>机台选型第一步是确定Test Plan在哪些机台上是可行的。比如就是要用ATE测LVDS，那么业界主流机台哪些有LVDS功能？</p>
+<p>机台选型有几个突出的指标：</p>
+<ol>
+<li>逻辑通道数</li>
+<li>pattern执行IO最大频率</li>
+<li>电源板卡供电能力</li>
+<li>pattern memory最大支持行数</li>
+<li>…(其次是一些特殊IP测试功能)</li>
+</ol>
+<p>根据前期收集的芯片信息，可以知道一颗芯片测试需要多少电源与IO channel，比如一颗die上有好几百个pad，实际封装后ball有200多个，最后连到ATE机台LPC数字IO的只有100多个，使用Chroma3380P最大IO数资源板卡配置即可实现4site同测。另外，还需要估算确定机台能不能存下Test Plan里所有的Pattern。</p>
+<p>第二步是考虑成本与封测厂能力。封测厂有哪些机台可以用？是否支持采购新机台？机时费多少？这些问题要求量产测试工程师提前沟通了解。市面上主流的ATE厂家数量不多，建议优先在主流方案中选型，如果量产测试研发能力强，也可以考虑国产机台，目前新的国产机台功能丰富，但应用是否稳定可靠有待市场验证。</p>
+<p>这两步做完，基本可以确定2-3个机台型号并且确定对应的同测site数，通过成本估算可以出一个trade off比较方案。</p>
+<h2 id="测试硬件制造外发"><a href="#测试硬件制造外发" class="headerlink" title="测试硬件制造外发"></a>测试硬件制造外发</h2><p>Test Plan确定、机台选型确定后，测试硬件方案基本框架就定下了，对应的测试硬件也不会有太多可选。比如die上有800多个pad的芯片如果做CP，肯定无法做悬臂针，必须上MLO垂直针，不同供应商的垂直针技术还不太一样，价格也有差异。除了CP针的方案，还有机台连接方案：是cable mount、pogo tower还是direct docking？这些芯片信息和Test Plan大致信息同步给供应商，他们一般会要求量产测试工程师填一个产品信息表格，根据对齐的信息会帮忙给一个大致的参考方案。</p>
+<p>因此这时的主要工作是和各个供应商沟通，沟通方案细节、价格、交期等事项。大部分的针卡、LB外包商都需要提供原理图，有些也包原理图设计，但无论哪种都需要有一定经验的硬件工程师进行review。如果项目非常赶工，要求在Test Plan没有完全敲定的情况下进行硬件外发，那么可以多做冗余设计，留好余地。与芯片流片类似，需要实体制造的device都需要比较长的准备时间，因此这个时间最好能和tape out重叠，并且尽快发包出去，量产测试工程师还可以并行写代码。</p>
+<img src="/archives/3bc29a18/image-20240819170723279.png" class="">
+
+<p>CP的方案除了ProbeCard的设计制造，还有针的制造，部分供应商的MLO针制作不在国内，需要比较长的交期，要求量产测试工程师、PM安排好项目进度。</p>
+<p>FT的方案除了LoadBoard的设计，还有Socket、Changkit的制造，有些项目中是由封测厂协助发包，务必确认好三方间的信息，千万注意不要搞出socket尺寸与changekit对不上的这种问题。因此，外发硬件制造完成后，一定要第一时间进行QC，如果有问题返工会对项目进度造成严重影响。</p>
+<h2 id="特殊治具定制"><a href="#特殊治具定制" class="headerlink" title="特殊治具定制"></a>特殊治具定制</h2><p>除了以上描述的常规量产测试硬件准备，sensor类芯片往往还需要光学环境，这些在Test Plan制定时最好把光学环境细节确定清楚，要充分考虑机械结构约束，同时如果治具需要固定在针卡、loadboard，那么方案也要同步给外包。</p>
+<p>在无锡积高封测听了合肥晶测的光学测试技术介绍，关于光学治具的方案，也可以联合有能力的封测厂及其供应商一起联合制定。</p>
+<h1 id="Step3-offline编写ATE测试程序"><a href="#Step3-offline编写ATE测试程序" class="headerlink" title="Step3 offline编写ATE测试程序"></a>Step3 offline编写ATE测试程序</h1><p>理论上只要机台选型结束，ATE工程就可以开始搭建了。各家ATE使用的语言、开发环境都不太一样，但原理相似。在这个阶段主要要做3件事情：</p>
+<ol>
+<li>转换DFT pattern</li>
+<li>实现channel list关系</li>
+<li>实现Test Plan到ATE代码</li>
+</ol>
+<h2 id="转换DFT-pattern"><a href="#转换DFT-pattern" class="headerlink" title="转换DFT pattern"></a>转换DFT pattern</h2><p>通常DFT使用EDA工具（常见Synopsys TestMax与Siemens Tessent）导出的都是标准的wgl或stil格式pattern，不是所有ATE都支持直接使用这些格式的pattern，因此大部分时候需要联系ATE厂家技术支持帮忙转换，转换可能出错，需要协助定位。</p>
+<h2 id="实现channel-list关系"><a href="#实现channel-list关系" class="headerlink" title="实现channel list关系"></a>实现channel list关系</h2><p>根据硬件原理图，需要在代码工程里描述机台通道到芯片引脚之间的对应关系，梳理Power pin、IO pin以及relay 控制信号等。做好命名分类，以便后续在程序中调用。</p>
+<h2 id="实现Test-Plan到ATE代码"><a href="#实现Test-Plan到ATE代码" class="headerlink" title="实现Test Plan到ATE代码"></a>实现Test Plan到ATE代码</h2><p>这个Step最核心的就是严格按照Test Plan在ATE工程里实现各个case的代码，要求量产测试工程师对机台内部机制有一定了解，通过API调用时，能理解硬件层面具体会发生什么。如果有冗余设计，可以代码上也提前写冗余代码，比如某个case的时钟既可以loadboard晶振外供，也可以机台提供，那么可以准备两份以便实际调试时直接切换。经验丰富的量产测试工程师可以在这个阶段多做工作，以减少后期online调试的时间。做到一定程度量产测试工程师可以拉设计人员一起对ATE工程进行review。这个Step将一直持续到所有硬件环境ready。</p>
+<h1 id="Step4-online实验室-工程批调试"><a href="#Step4-online实验室-工程批调试" class="headerlink" title="Step4 online实验室&#x2F;工程批调试"></a>Step4 online实验室&#x2F;工程批调试</h1><p>俗话说干软件三分写七分调，在硬件环境ready后，通常都会在实验室环境进行online调试。CP需要wafer允许的无尘环境以及完整的探针台Probe环境，目前比较少实验室有CP环境，季丰唐镇实验室就支持，<del>但机时费较贵</del>。FT则要求低很多，前期调试可以先不使用handler，而是使用手测器来测试，在实验室调试比在封测厂产线调试价格更划算、调试环境也更好，比较推荐去ATE厂家在local的实验室，方便技术支持。芯片设计大厂有些也会在自己的实验室购置ATE，调试需求很多的话相比租用更省钱。</p>
+<p>工程调试比较考验量产测试工程师的综合能力，对于不同的芯片，有很多不同的调试经验技巧。调试的流程通常有以下步骤：</p>
+<ol>
+<li>确认硬件环境ok、os测试通过</li>
+<li>逐个case调pass：确保case代码如预期执行对正常芯片能pass</li>
+<li>Bringup故障片筛查（可选）：确认能否筛出Bringup阶段发现的故障片</li>
+<li>收集shmoo图、wafer良率分布等数据（可选）</li>
+<li>小批量摸底良率</li>
+<li>优化代码执行时间</li>
+</ol>
+<p>对于一个新产品，调试阶段可能会遇到各种各样的问题，需要具体问题具体分析去尝试定位root cause，如果是制造、封装有问题，可能需要与Fab或封测厂沟通。</p>
+<h1 id="Step5-Release量产"><a href="#Step5-Release量产" class="headerlink" title="Step5 Release量产"></a>Step5 Release量产</h1><p>如果小批量摸底良率符合预期，遇到的问题基本解决，那么就要准备release给量产。通常封测厂的测试产线都会有自己的生产系统，这个系统会接入Handler或者Probe并调用ATE机台执行测试程序。封测厂会要求量产测试工程师填一个releaseform，里面要描述好程序包名称、测试condition、测试流程、hardware分bin等信息。然后将工程打包发给现场的工程师。通常在产线大批量测试开始前，还会做一些dummy调整以及工程批试产，如果遇到问题，可能还需要远程产线电脑进行调试或者进厂调试。产线会反馈每批次的良率信息，要求量产测试工程师做好数据整理并分析反馈给设计及制造，以作为后续设计优化良率提升参考。得到量产各case良率后，还可以调整case执行顺序来进一步优化整理测试时间。可以根据量产批次推进迭代优化。最后，要求量产测试工程师编写该产品的量产测试报告。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="weixin"></i>
+            </span>
+
+            <span class="label">WeChat Subscription</span>
+          </span>
+
+          <img class="social-item-img" src="/images/weChat-pub.jpg">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/IC/" rel="tag"># IC</a>
+              <a href="/tags/CP/" rel="tag"># CP</a>
+              <a href="/tags/FT/" rel="tag"># FT</a>
+              <a href="/tags/ATE/" rel="tag"># ATE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/deb67521.html" rel="prev" title="Windows下编译v0.12.0 OpenOCD">
+                  <i class="fa fa-angle-left"></i> Windows下编译v0.12.0 OpenOCD
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fab fa-grav"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Aemaeth0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">29k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener external nofollow noreferrer" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

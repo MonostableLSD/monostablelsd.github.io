@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/net-logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/net-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/net-logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"aemaeth0.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="之前发布hexo博客需要在安装了nodejs的电脑上反复执行hexo g &amp; hexo d，并且想要换台电脑就变得很麻烦，这次请Github Action代劳，于是除了第一次搭建需要本地deploy预览效果以外，其余时刻我可以抛弃nodejs只传输markdown文件，并且编辑端换上了更好用的Obsidian，快来和我一起搭建数字花园！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字花园搭建：Obsidian+Hexo+Github">
+<meta property="og:url" content="https://aemaeth0.xyz/archives/e12db737.html">
+<meta property="og:site_name" content="Aemaeth0&#39;s Notes">
+<meta property="og:description" content="之前发布hexo博客需要在安装了nodejs的电脑上反复执行hexo g &amp; hexo d，并且想要换台电脑就变得很麻烦，这次请Github Action代劳，于是除了第一次搭建需要本地deploy预览效果以外，其余时刻我可以抛弃nodejs只传输markdown文件，并且编辑端换上了更好用的Obsidian，快来和我一起搭建数字花园！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718101929351.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718100249490.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718100611979.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718104540557.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718124456480.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718124628093.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718125025674.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718125151815.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718133204629.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718131628988.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718131735074.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718132258384.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718133132518.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718133303105.png">
+<meta property="og:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718133530799.png">
+<meta property="article:published_time" content="2024-07-18T01:57:48.000Z">
+<meta property="article:modified_time" content="2024-08-19T09:21:53.055Z">
+<meta property="article:author" content="Aemaeth0">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="obsidian">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aemaeth0.xyz/archives/e12db737/image-20240718101929351.png">
+
+
+<link rel="canonical" href="https://aemaeth0.xyz/archives/e12db737.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://aemaeth0.xyz/archives/e12db737.html","path":"archives/e12db737.html","title":"数字花园搭建：Obsidian+Hexo+Github"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数字花园搭建：Obsidian+Hexo+Github | Aemaeth0's Notes</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Aemaeth0's Notes</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple & Stay Naive</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Step-1-Github%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">Step 1: Github配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BAio%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">新建io仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">分支设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Step-2%EF%BC%9A%E6%9C%AC%E5%9C%B0Hexo%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">Step 2：本地Hexo第一次搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">下载环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDGit-Node-js"><span class="nav-number">2.1.1.</span> <span class="nav-text">下载Git &amp; Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEGithub-SSH"><span class="nav-number">2.1.2.</span> <span class="nav-text">配置Github SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NPM%E6%8D%A2%E6%BA%90"><span class="nav-number">2.1.3.</span> <span class="nav-text">NPM换源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E4%BB%93%E5%BA%93%E8%87%B3%E6%9C%AC%E5%9C%B0pc"><span class="nav-number">2.1.4.</span> <span class="nav-text">下载仓库至本地pc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-hexo-next%E4%B8%BB%E9%A2%98"><span class="nav-number">2.1.5.</span> <span class="nav-text">安装 hexo &amp; next主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8D%9A%E5%AE%A2%E9%A1%B5%E9%9D%A2%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.</span> <span class="nav-text">配置博客页面设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo%E6%9C%AC%E4%BD%93%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.1.</span> <span class="nav-text">Hexo本体配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NexT%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.</span> <span class="nav-text">NexT主题配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">2.2.3.</span> <span class="nav-text">插件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E9%A1%B5%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA"><span class="nav-number">2.2.4.</span> <span class="nav-text">主页手动创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C"><span class="nav-number">2.2.5.</span> <span class="nav-text">本地预览效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2"><span class="nav-number">2.2.6.</span> <span class="nav-text">发布博客</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github-Action"><span class="nav-number">2.3.</span> <span class="nav-text">Github Action</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEdeploy%E8%84%9A%E6%9C%AC"><span class="nav-number">2.3.1.</span> <span class="nav-text">配置deploy脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEdeploy-key"><span class="nav-number">2.3.2.</span> <span class="nav-text">设置deploy key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95workflow"><span class="nav-number">2.3.3.</span> <span class="nav-text">调试workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E9%82%AE%E4%BB%B6%E9%80%9A%E7%9F%A5"><span class="nav-number">2.3.4.</span> <span class="nav-text">错误邮件通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitignore%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.5.</span> <span class="nav-text">gitignore配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Obsidian%E9%85%8D%E7%BD%AE"><span class="nav-number">2.4.</span> <span class="nav-text">Obsidian配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E4%BB%93%E5%BA%93"><span class="nav-number">2.4.1.</span> <span class="nav-text">打开仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E6%A8%A1%E6%9D%BF"><span class="nav-number">2.4.2.</span> <span class="nav-text">文件头模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E7%B2%98%E8%B4%B4"><span class="nav-number">2.4.3.</span> <span class="nav-text">图片粘贴</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-Attachment-%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">Custom Attachment 设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hexo-Asset-Folder%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">Hexo Asset Folder设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%88%E6%9E%9C"><span class="nav-number">2.4.3.3.</span> <span class="nav-text">效果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Obsidian-Git"><span class="nav-number">2.4.4.</span> <span class="nav-text">Obsidian Git</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Step-3%EF%BC%9A%E6%97%A5%E5%B8%B8%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">Step 3：日常管理</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Aemaeth0"
+      src="/images/hexo-avatar.png">
+  <p class="site-author-name" itemprop="name">Aemaeth0</p>
+  <div class="site-description" itemprop="description">EE,IC,Linux,C/C++,Control theory</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MonostableLSD" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MonostableLSD" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:monostablelss@gmail.com" title="E-Mail → mailto:monostablelss@gmail.com" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/images/weChat.png" title="WeChat → &#x2F;images&#x2F;weChat.png" rel="noopener me"><i class="fab fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/7564745" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;7564745" rel="noopener me external nofollow noreferrer" target="_blank"><i class="fa fa-mars fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://aemaeth0.xyz/archives/e12db737.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hexo-avatar.png">
+      <meta itemprop="name" content="Aemaeth0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemaeth0's Notes">
+      <meta itemprop="description" content="EE,IC,Linux,C/C++,Control theory">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数字花园搭建：Obsidian+Hexo+Github | Aemaeth0's Notes">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数字花园搭建：Obsidian+Hexo+Github
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-18 09:57:48" itemprop="dateCreated datePublished" datetime="2024-07-18T09:57:48+08:00">2024-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-08-19 17:21:53" itemprop="dateModified" datetime="2024-08-19T17:21:53+08:00">2024-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">博客搭建</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><img src="/archives/e12db737/image-20240718101929351.png" class="">
+<p>之前发布hexo博客需要在安装了nodejs的电脑上反复执行hexo g &amp; hexo d，并且想要换台电脑就变得很麻烦，这次请Github Action代劳，于是除了第一次搭建需要本地deploy预览效果以外，其余时刻我可以抛弃nodejs只传输markdown文件，并且编辑端换上了更好用的Obsidian，快来和我一起搭建数字花园！</p>
+<span id="more"></span>
+
+<h1 id="Step-1-Github配置"><a href="#Step-1-Github配置" class="headerlink" title="Step 1: Github配置"></a>Step 1: Github配置</h1><h2 id="新建io仓库"><a href="#新建io仓库" class="headerlink" title="新建io仓库"></a>新建io仓库</h2><p>创建名为<code>$USER_NAME.github.io</code>的仓库，其中<code>$USER_NAME</code>为自己的GitHub用户名，GitHub会自动启用pages服务</p>
+<img src="/archives/e12db737/image-20240718100249490.png" class="">
+<h2 id="分支设置"><a href="#分支设置" class="headerlink" title="分支设置"></a>分支设置</h2><ul>
+<li>hexo分支用来存放post+config，设置为default</li>
+<li>master分支用来存放deploy出来的html，在Pages 设置里设置为deploy源头<img src="/archives/e12db737/image-20240718100611979.png" class=""></li>
+</ul>
+<h1 id="Step-2：本地Hexo第一次搭建"><a href="#Step-2：本地Hexo第一次搭建" class="headerlink" title="Step 2：本地Hexo第一次搭建"></a>Step 2：本地Hexo第一次搭建</h1><h2 id="下载环境"><a href="#下载环境" class="headerlink" title="下载环境"></a>下载环境</h2><h3 id="下载Git-Node-js"><a href="#下载Git-Node-js" class="headerlink" title="下载Git &amp; Node.js"></a>下载Git &amp; Node.js</h3><ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://git-scm.com/downloads">Git Download</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://nodejs.org/en">Node.js Download</a></li>
+</ul>
+<h3 id="配置Github-SSH"><a href="#配置Github-SSH" class="headerlink" title="配置Github SSH"></a>配置Github SSH</h3><p>打开Git bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519</span><br></pre></td></tr></table></figure>
+<p>一路回车，在C:\Users\用户名.ssh文件夹下有生成的ssh key，需要将pub内容复制到github设置里面，才能通过ssh的方式上传下载远程仓库</p>
+<img src="/archives/e12db737/image-20240718104540557.png" class="">
+<h3 id="NPM换源"><a href="#NPM换源" class="headerlink" title="NPM换源"></a>NPM换源</h3><p>装完nodejs就可以使用npm来下载hexo包了，但是npm下载node包有时因为网络问题而卡住，可以尝试换源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npmmirror.com/</span><br></pre></td></tr></table></figure>
+<h3 id="下载仓库至本地pc"><a href="#下载仓库至本地pc" class="headerlink" title="下载仓库至本地pc"></a>下载仓库至本地pc</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;user_name&quot; # user_name 填入 GitHub 用户名</span><br><span class="line">git config --global user.email &quot;user_email&quot; # user_email 填入 GitHub 注册的邮箱</span><br><span class="line">git clone git@github.com:MonostableLSD/monostablelsd.github.io.git</span><br><span class="line">cd monostablelsd.github.io</span><br><span class="line">git branch -a #确认处于hexo分支上</span><br></pre></td></tr></table></figure>
+<h3 id="安装-hexo-next主题"><a href="#安装-hexo-next主题" class="headerlink" title="安装 hexo &amp; next主题"></a>安装 hexo &amp; next主题</h3>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init</span><br><span class="line">npm install</span><br><span class="line">npm install hexo-theme-next@latest --save #安装next主题</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>注意不要装成theme-next</strong> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/next-theme/hexo-theme-next/issues/4#issuecomment-626205848">ref</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\aemaeth\Documents\MyBlog\monostablelsd.github.io&gt; hexo -v</span><br><span class="line">INFO  Validating config</span><br><span class="line">hexo: 7.3.0</span><br><span class="line">hexo-cli: 4.3.2</span><br><span class="line">os: win32 10.0.19045 undefined</span><br><span class="line">node: 20.15.1</span><br><span class="line">acorn: 8.11.3</span><br><span class="line">ada: 2.7.8</span><br><span class="line">ares: 1.28.1</span><br><span class="line">base64: 0.5.2</span><br><span class="line">brotli: 1.1.0</span><br><span class="line">cjs_module_lexer: 1.2.2       </span><br><span class="line">cldr: 45.0</span><br><span class="line">icu: 75.1</span><br><span class="line">llhttp: 8.1.2</span><br><span class="line">modules: 115</span><br><span class="line">napi: 9</span><br><span class="line">nghttp2: 1.61.0</span><br><span class="line">nghttp3: 0.7.0</span><br><span class="line">ngtcp2: 1.1.0</span><br><span class="line">openssl: 3.0.13+quic</span><br><span class="line">simdutf: 5.2.8</span><br><span class="line">tz: 2024a</span><br><span class="line">undici: 6.13.0</span><br><span class="line">unicode: 15.1</span><br><span class="line">uv: 1.46.0</span><br><span class="line">uvwasi: 0.0.21</span><br><span class="line">v8: 11.3.244.8-node.23</span><br><span class="line">zlib: 1.3.0.1-motley-7d77fb7</span><br></pre></td></tr></table></figure>
+<h2 id="配置博客页面设计"><a href="#配置博客页面设计" class="headerlink" title="配置博客页面设计"></a>配置博客页面设计</h2><p>想要发布主页到<code>github pages</code>以及设计出个性化的主页，需要：</p>
+<ul>
+<li><p>对博客根目录下的<code>_config.yml</code>进行参数修改</p>
+</li>
+<li><p>利用hexo5.0以后的新特性对主题配置文件进行Alternate后再修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp node_modules/hexo-theme-next/_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意冒号后要空格</strong></p>
+</li>
+</ul>
+<h3 id="Hexo本体配置"><a href="#Hexo本体配置" class="headerlink" title="Hexo本体配置"></a>Hexo本体配置</h3><p><code>_config.yml</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/docs/configuration">官方文档</a></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Site 博客基本信息</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Aemaeth0&#x27;s</span> <span class="string">Notes</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;Stay Simple &amp; Stay Naive&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;EE,IC,Linux,C/C++,Control theory&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Aemaeth0</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL 网址设置</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://aemaeth0.xyz</span></span><br><span class="line"><span class="comment">#permalink: :year/:month/:day/:title/ #文章永久链接</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">archives/:abbrlink.html</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  <span class="comment"># 算法：crc16(default) and crc32</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    <span class="comment"># 进制：dec(default) and hex</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"><span class="attr">pretty_urls:</span></span><br><span class="line">  <span class="attr">trailing_index:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">source_dir:</span> <span class="string">source</span></span><br><span class="line"><span class="attr">public_dir:</span> <span class="string">public</span></span><br><span class="line"><span class="attr">tag_dir:</span> <span class="string">tags</span></span><br><span class="line"><span class="attr">archive_dir:</span> <span class="string">archives</span></span><br><span class="line"><span class="attr">category_dir:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">code_dir:</span> <span class="string">downloads/code</span></span><br><span class="line"><span class="attr">i18n_dir:</span> <span class="string">:lang</span></span><br><span class="line"><span class="attr">skip_render:</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;_template/*&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;.obsidian/*&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span> <span class="comment"># File name of new posts</span></span><br><span class="line"><span class="attr">default_layout:</span> <span class="string">post</span></span><br><span class="line"><span class="attr">titlecase:</span> <span class="literal">false</span> <span class="comment"># Transform title into titlecase</span></span><br><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">site</span> <span class="comment"># Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">filename_case:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">render_drafts:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">relative_link:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">future:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">preprocess:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Home page setting</span></span><br><span class="line"><span class="comment"># path: Root path for your blogs index page. (default = &#x27;&#x27;)</span></span><br><span class="line"><span class="comment"># per_page: Posts displayed per page. (0 = disable pagination)</span></span><br><span class="line"><span class="comment"># order_by: Posts order. (Order by date descending by default)</span></span><br><span class="line"><span class="attr">index_generator:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category:</span> <span class="string">uncategorized</span></span><br><span class="line"><span class="attr">category_map:</span></span><br><span class="line"><span class="attr">tag_map:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Metadata elements</span></span><br><span class="line"><span class="comment">## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta</span></span><br><span class="line"><span class="attr">meta_generator:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format</span></span><br><span class="line"><span class="comment">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="attr">date_format:</span> <span class="string">YYYY-MM-DD</span></span><br><span class="line"><span class="attr">time_format:</span> <span class="string">HH:mm:ss</span></span><br><span class="line"><span class="comment">## updated_option supports &#x27;mtime&#x27;, &#x27;date&#x27;, &#x27;empty&#x27;</span></span><br><span class="line"><span class="attr">updated_option:</span> <span class="string">&#x27;mtime&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line"><span class="attr">per_page:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">pagination_dir:</span> <span class="string">page</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Include / Exclude file(s)</span></span><br><span class="line"><span class="comment">## include:/exclude: options only apply to the &#x27;source/&#x27; folder</span></span><br><span class="line"><span class="attr">include:</span></span><br><span class="line"><span class="attr">exclude:</span> </span><br><span class="line"><span class="attr">ignore:</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br><span class="line"></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line"><span class="comment">#文章内是否显示</span></span><br><span class="line">  <span class="attr">symbols:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">time:</span> <span class="literal">false</span></span><br><span class="line"> <span class="comment"># 网页底部是否显示</span></span><br><span class="line">  <span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:MonostableLSD/monostablelsd.github.io.git</span> <span class="comment"># 你的Github仓库地址</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="NexT主题配置"><a href="#NexT主题配置" class="headerlink" title="NexT主题配置"></a>NexT主题配置</h3><p><code>_config.next.yml</code> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://theme-next.js.org/docs/theme-settings/">官方文档</a></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===============================================================</span></span><br><span class="line"><span class="comment"># It&#x27;s recommended to use Alternate Theme Config to configure NexT</span></span><br><span class="line"><span class="comment"># Modifying this file may result in merge conflict</span></span><br><span class="line"><span class="comment"># See: https://theme-next.js.org/docs/getting-started/configuration</span></span><br><span class="line"><span class="comment"># ===============================================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Theme Core Configuration Settings</span></span><br><span class="line"><span class="comment"># See: https://theme-next.js.org/docs/theme-settings/</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow to cache content generation.</span></span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove unnecessary files after hexo generate.</span></span><br><span class="line"><span class="attr">minify:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="comment">#style: source/_data/styles.styl</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Scheme Settings</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="comment">#scheme: Pisces</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Gemini</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dark Mode</span></span><br><span class="line"><span class="attr">darkmode:</span> <span class="literal">false</span></span><br><span class="line"><span class="string">...主题设置内容太多</span> <span class="string">具体可参考官网</span> <span class="string">https://theme-next.js.org/docs/theme-settings/</span></span><br></pre></td></tr></table></figure>
+<h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><p>&#x2F;&#x2F;待续</p>
+<ul>
+<li>搜索</li>
+</ul>
+<h3 id="主页手动创建"><a href="#主页手动创建" class="headerlink" title="主页手动创建"></a>主页手动创建</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags /about /categories</span><br></pre></td></tr></table></figure>
+<h3 id="本地预览效果"><a href="#本地预览效果" class="headerlink" title="本地预览效果"></a>本地预览效果</h3><p>通过config修改网页配置后，想要预览一下效果，可以hexo本地部署：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\aemaeth\Documents\MyBlog\monostablelsd.github.io&gt; hexo clean</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Deleted database.</span><br><span class="line">INFO  Deleted public folder.</span><br><span class="line">PS C:\Users\aemaeth\Documents\MyBlog\monostablelsd.github.io&gt; hexo g</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  ==================================</span><br><span class="line">  ███╗   ██╗███████╗██╗  ██╗████████╗</span><br><span class="line">  ████╗  ██║██╔════╝╚██╗██╔╝╚══██╔══╝</span><br><span class="line">  ██╔██╗ ██║█████╗   ╚███╔╝    ██║</span><br><span class="line">  ██║╚██╗██║██╔══╝   ██╔██╗    ██║</span><br><span class="line">  ██║ ╚████║███████╗██╔╝ ██╗   ██║</span><br><span class="line">  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝   ╚═╝</span><br><span class="line">========================================</span><br><span class="line">NexT version 8.20.0</span><br><span class="line">Documentation: https://theme-next.js.org</span><br><span class="line">========================================</span><br><span class="line">INFO  Start processing</span><br><span class="line">Markdown Image Path: ![](数字花园搭建：Obsidian+Hexo+Github/image-20240718101929351.png)</span><br><span class="line">asset_img string: &#123;% asset_img image-20240718101929351.png  %&#125;</span><br><span class="line">Markdown Image Path: ![](数字花园搭建：Obsidian+Hexo+Github/image-20240718100249490.png)</span><br><span class="line">asset_img string: &#123;% asset_img image-20240718100249490.png  %&#125;</span><br><span class="line">Markdown Image Path: ![](数字花园搭建：Obsidian+Hexo+Github/image-20240718100611979.png)</span><br><span class="line">asset_img string: &#123;% asset_img image-20240718100611979.png  %&#125;</span><br><span class="line">Markdown Image Path: ![](数字花园搭建：Obsidian+Hexo+Github/image-20240718104540557.png)</span><br><span class="line">asset_img string: &#123;% asset_img image-20240718104540557.png  %&#125;</span><br><span class="line">INFO  Files loaded in 134 ms</span><br><span class="line">INFO  Generated: about/index.html</span><br><span class="line">INFO  Generated: categories/index.html</span><br><span class="line">INFO  Generated: archives/66464b4a.html</span><br><span class="line">INFO  Generated: archives/2024/index.html</span><br><span class="line">INFO  Generated: archives/2019/index.html</span><br><span class="line">INFO  Generated: archives/2020/index.html</span><br><span class="line">INFO  Generated: archives/2019/01/index.html</span><br><span class="line">INFO  Generated: archives/2020/01/index.html</span><br><span class="line">INFO  Generated: tags/index.html</span><br><span class="line">INFO  Generated: search.xml</span><br><span class="line">INFO  Generated: archives/2024/07/index.html</span><br><span class="line">INFO  Generated: categories/Tech/index.html</span><br><span class="line">INFO  Generated: tags/obsidian/index.html</span><br><span class="line">INFO  Generated: images/favicon-16x16-next.png</span><br><span class="line">INFO  Generated: tags/hexo/index.html</span><br><span class="line">INFO  Generated: tags/Without-OS/index.html</span><br><span class="line">INFO  Generated: tags/github/index.html</span><br><span class="line">INFO  Generated: tags/MCU/index.html</span><br><span class="line">INFO  Generated: index.html</span><br><span class="line">INFO  Generated: archives/53bd0ece.html</span><br><span class="line">INFO  Generated: archives/e12db737.html</span><br><span class="line">INFO  Generated: archives/index.html</span><br><span class="line">INFO  Generated: archives/e12db737/image-20240718101929351.png</span><br><span class="line">INFO  Generated: images/back/apple-touch-icon-next.png</span><br><span class="line">INFO  Generated: images/favicon-32x32-next.png</span><br><span class="line">INFO  Generated: images/apple-touch-icon-next.png</span><br><span class="line">INFO  Generated: images/avatar.gif</span><br><span class="line">INFO  Generated: images/logo.svg</span><br><span class="line">INFO  Generated: js/comments.js</span><br><span class="line">INFO  Generated: css/main.css</span><br><span class="line">INFO  Generated: CNAME</span><br><span class="line">INFO  Generated: images/algolia_logo.svg</span><br><span class="line">INFO  Generated: js/third-party/addtoany.js</span><br><span class="line">INFO  Generated: images/cc-by-nc.svg</span><br><span class="line">INFO  Generated: js/third-party/analytics/matomo.js</span><br><span class="line">INFO  Generated: images/cc-by-nc-sa.svg</span><br><span class="line">INFO  Generated: images/cc-by-sa.svg</span><br><span class="line">INFO  Generated: images/cc-by-nd.svg</span><br><span class="line">INFO  Generated: images/cc-zero.svg</span><br><span class="line">INFO  Generated: images/cc-by.svg</span><br><span class="line">INFO  Generated: images/quote-r.svg</span><br><span class="line">INFO  Generated: images/cc-by-nc-nd.svg</span><br><span class="line">INFO  Generated: images/weChat-pub.jpg</span><br><span class="line">INFO  Generated: archives/e12db737/image-20240718100249490.png</span><br><span class="line">INFO  Generated: images/weChat.png</span><br><span class="line">INFO  Generated: css/noscript.css</span><br><span class="line">INFO  Generated: js/motion.js</span><br><span class="line">INFO  Generated: js/config.js</span><br><span class="line">INFO  Generated: images/hexo-avatar.png</span><br><span class="line">INFO  Generated: js/sidebar.js</span><br><span class="line">INFO  Generated: js/next-boot.js</span><br><span class="line">INFO  Generated: archives/e12db737/image-20240718100611979.png</span><br><span class="line">INFO  Generated: js/utils.js</span><br><span class="line">INFO  Generated: archives/e12db737/image-20240718104540557.png</span><br><span class="line">INFO  Generated: js/third-party/search/local-search.js</span><br><span class="line">INFO  Generated: images/net-logo.png</span><br><span class="line">INFO  Generated: images/back/hexo-avatar.png</span><br><span class="line">INFO  Generated: images/benjamin-voros-phIFdC6lA4E-unsplash.jpg</span><br><span class="line">INFO  59 files generated in 380 ms</span><br><span class="line">PS C:\Users\aemaeth\Documents\MyBlog\monostablelsd.github.io&gt; hexo s</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  ==================================</span><br><span class="line">  ███╗   ██╗███████╗██╗  ██╗████████╗</span><br><span class="line">  ████╗  ██║██╔════╝╚██╗██╔╝╚══██╔══╝</span><br><span class="line">  ██╔██╗ ██║█████╗   ╚███╔╝    ██║</span><br><span class="line">  ██║╚██╗██║██╔══╝   ██╔██╗    ██║</span><br><span class="line">  ██║ ╚████║███████╗██╔╝ ██╗   ██║</span><br><span class="line">  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝   ╚═╝</span><br><span class="line">========================================</span><br><span class="line">NexT version 8.20.0</span><br><span class="line">Documentation: https://theme-next.js.org</span><br><span class="line">========================================</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+<p>浏览器访问<a target="_blank" rel="noopener external nofollow noreferrer" href="http://localhost:4000/%E5%8D%B3%E5%8F%AF%E9%A2%84%E8%A7%88">http://localhost:4000/即可预览</a></p>
+<h3 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h3><p>至此，在_config.yml中配置好deploy</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: &#x27;git&#x27;</span><br><span class="line">  repo: git@github.com:xxx.git # 你的Github仓库地址</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>就可以通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>将网页部署到github master分支上去，它就可以自动渲染html页面了，但每次都要借助hexo cli来更新博客，还是感觉有点麻烦，因此借助github action来实现自动部署</p>
+<h2 id="Github-Action"><a href="#Github-Action" class="headerlink" title="Github Action"></a>Github Action</h2><h3 id="配置deploy脚本"><a href="#配置deploy脚本" class="headerlink" title="配置deploy脚本"></a>配置deploy脚本</h3><p>在本地hexo分支下新建.github&#x2F;workflows&#x2F;hexo-deploy.yml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">name: Hexo Deploy</span><br><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line">      - hexo</span><br><span class="line">env:</span><br><span class="line">  GIT_USER: aemaeth</span><br><span class="line">  GIT_EMAIL: monostablelss@gmail.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">jobs:</span><br><span class="line">  build:</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    steps:</span><br><span class="line">      - name: Checkout deploy branch</span><br><span class="line">        uses: actions/checkout@v2</span><br><span class="line">        with:</span><br><span class="line">          ref: hexo</span><br><span class="line">          path: ./</span><br><span class="line"></span><br><span class="line">      - name: Set up Node.js</span><br><span class="line">        uses: actions/setup-node@v2</span><br><span class="line">        with:</span><br><span class="line">          node-version: 14</span><br><span class="line"></span><br><span class="line">      - name: Remove Deploy_git</span><br><span class="line">        run: |</span><br><span class="line">          rm -rf .deploy_git</span><br><span class="line"></span><br><span class="line">      - name: Install dependencies</span><br><span class="line">        run: |</span><br><span class="line">          npm install &amp;&amp; npm run build</span><br><span class="line"></span><br><span class="line">      - name: Hexo c &amp; g</span><br><span class="line">        run: |</span><br><span class="line">          npm run build</span><br><span class="line">          </span><br><span class="line">      - name: Configuration environment</span><br><span class="line">        env:</span><br><span class="line">          HEXO_DEPLOY_PRI: $&#123;&#123;secrets.HEXO_DEPLOY_PRI&#125;&#125;</span><br><span class="line">        run: |</span><br><span class="line">          mkdir -p ~/.ssh/</span><br><span class="line">          echo &quot;$HEXO_DEPLOY_PRI&quot; &gt; ~/.ssh/id_rsa</span><br><span class="line">          chmod 600 ~/.ssh/id_rsa</span><br><span class="line">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">          git config --global user.name $GIT_USER</span><br><span class="line">          git config --global user.email $GIT_EMAIL</span><br><span class="line"></span><br><span class="line">      - name: Deploy</span><br><span class="line">        run: |</span><br><span class="line">          npm run deploy</span><br></pre></td></tr></table></figure>
+<p>Github Action的原理是，通过一个yml告诉github要做的workflow，它会在一个虚拟环境里面帮忙执行workflow里面的操作，github提供一个action market，可以调用这些market里面的action，本质是虚拟了一个命令行环境，可以认为是另一台电脑。<br>上面的yml描述了这样的workflow：当hexo分支push时触发这个workflow，虚拟一个ubuntu环境，先checkout下载repo hexo分支，再帮忙按照package.json描述npm安装node包，pacage.json如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;hexo-site&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;0.0.0&quot;,</span><br><span class="line">  &quot;private&quot;: true,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;build&quot;: &quot;hexo clean &amp;&amp; hexo generate&quot;,</span><br><span class="line">    &quot;clean&quot;: &quot;hexo clean&quot;,</span><br><span class="line">    &quot;deploy&quot;: &quot;hexo deploy&quot;,</span><br><span class="line">    &quot;server&quot;: &quot;hexo server&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hexo&quot;: &#123;</span><br><span class="line">    &quot;version&quot;: &quot;7.3.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;hexo&quot;: &quot;^7.3.0&quot;,</span><br><span class="line">    &quot;hexo-abbrlink&quot;: &quot;^2.2.1&quot;,</span><br><span class="line">    &quot;hexo-deployer-git&quot;: &quot;^4.0.0&quot;,</span><br><span class="line">    &quot;hexo-filter-nofollow&quot;: &quot;^2.0.2&quot;,</span><br><span class="line">    &quot;hexo-generator-archive&quot;: &quot;^2.0.0&quot;,</span><br><span class="line">    &quot;hexo-generator-category&quot;: &quot;^2.0.0&quot;,</span><br><span class="line">    &quot;hexo-generator-index&quot;: &quot;^4.0.0&quot;,</span><br><span class="line">    &quot;hexo-generator-searchdb&quot;: &quot;^1.4.1&quot;,</span><br><span class="line">    &quot;hexo-generator-tag&quot;: &quot;^2.0.0&quot;,</span><br><span class="line">    &quot;hexo-image-link&quot;: &quot;^0.0.6&quot;,</span><br><span class="line">    &quot;hexo-renderer-ejs&quot;: &quot;^2.0.0&quot;,</span><br><span class="line">    &quot;hexo-renderer-marked&quot;: &quot;^6.3.0&quot;,</span><br><span class="line">    &quot;hexo-renderer-stylus&quot;: &quot;^3.0.1&quot;,</span><br><span class="line">    &quot;hexo-server&quot;: &quot;^3.0.0&quot;,</span><br><span class="line">    &quot;hexo-symbols-count-time&quot;: &quot;^0.7.1&quot;,</span><br><span class="line">    &quot;hexo-theme-next&quot;: &quot;^8.20.0&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>npm run build即执行 hexo clean &amp;&amp; hexo generate，生成要发布到master的public文件</p>
+<h3 id="设置deploy-key"><a href="#设置deploy-key" class="headerlink" title="设置deploy key"></a>设置deploy key</h3><p>当github action帮我们在虚拟环境里hexo d的时候，这个环境是没有ssh权限的，因此需要偷偷给虚拟环境一个密钥，并且把公钥告诉github，这里要用到github secret功能<br>首先在本地pc生成一对公钥密钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -f github-deploy-key</span><br></pre></td></tr></table></figure>
+<p>将密钥（非pub后缀）内容复制进github secret，并命名HEXO_DEPLOY_PRI</p>
+<img src="/archives/e12db737/image-20240718124456480.png" class="">
+<p>将公钥(pub后缀)内容复制进github deploy key，并命名HEXO_DEPLOY_PUB</p>
+<img src="/archives/e12db737/image-20240718124628093.png" class="">
+
+<p>通过yml脚本取出secret密钥存入虚拟环境的.ssh中，并配置git操作，这样才能正常hexo d</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- name: Configuration environment</span><br><span class="line">  env:</span><br><span class="line">    HEXO_DEPLOY_PRI: $&#123;&#123;secrets.HEXO_DEPLOY_PRI&#125;&#125;</span><br><span class="line">  run: |</span><br><span class="line">    mkdir -p ~/.ssh/</span><br><span class="line">    echo &quot;$HEXO_DEPLOY_PRI&quot; &gt; ~/.ssh/id_rsa</span><br><span class="line">    chmod 600 ~/.ssh/id_rsa</span><br><span class="line">    ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">    git config --global user.name $GIT_USER</span><br><span class="line">    git config --global user.email $GIT_EMAIL</span><br></pre></td></tr></table></figure>
+<h3 id="调试workflow"><a href="#调试workflow" class="headerlink" title="调试workflow"></a>调试workflow</h3><p>如果遇到问题可以在github action页面看到workflow的log，可以帮助定位问题</p>
+<img src="/archives/e12db737/image-20240718125025674.png" class="">
+
+<h3 id="错误邮件通知"><a href="#错误邮件通知" class="headerlink" title="错误邮件通知"></a>错误邮件通知</h3><p>可以修改GitHub notification使workflow失败时发邮件通知</p>
+<img src="/archives/e12db737/image-20240718125151815.png" class="">
+<h3 id="gitignore配置"><a href="#gitignore配置" class="headerlink" title="gitignore配置"></a>gitignore配置</h3><p>一旦完成了action流程调试、不再需要hexo cli来操作博客，就可以放弃nodejs，因此可以gitignore掉node_moudules等比较大的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">.deploy*/</span><br><span class="line">public/</span><br><span class="line"># Ignore Smart Connections folder because embeddings file is large and updated frequently</span><br><span class="line">.smart-connections</span><br><span class="line">.trash</span><br><span class="line">.stignore</span><br></pre></td></tr></table></figure>
+<h2 id="Obsidian配置"><a href="#Obsidian配置" class="headerlink" title="Obsidian配置"></a>Obsidian配置</h2><h3 id="打开仓库"><a href="#打开仓库" class="headerlink" title="打开仓库"></a>打开仓库</h3><p>打开source文件夹作为obsidian工作库，这时obsidian会在source下新建一个.obsidian文件夹用于存obsidian的信息与插件，我选择将其传入git，这样方便我在其他电脑上clone下来使用，可以在_config.yml中跳过这些文件夹的渲染</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">skip_render: </span><br><span class="line">    - &quot;_template/*&quot;</span><br><span class="line">    - &quot;.obsidian/*&quot;</span><br></pre></td></tr></table></figure>
+<p>设置新文件路径：</p>
+<img src="/archives/e12db737/image-20240718133204629.png" class="">
+<h3 id="文件头模板"><a href="#文件头模板" class="headerlink" title="文件头模板"></a>文件头模板</h3><p>不使用hexo new来新建md时，需要手动添加文件头，obsidian有<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/SilentVoid13/Templater">Templatter</a>方便插入</p>
+<img src="/archives/e12db737/image-20240718131628988.png" class="">
+<p>在source文件夹下新建一个_template&#x2F;tp-hexo-post-init.md</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;&lt;% tp.file.title %&gt;&#x27;</span><br><span class="line">categories:</span><br><span class="line">tags:</span><br><span class="line">mathjax: true</span><br><span class="line">date: &lt;% tp.date.now(&quot;YYYY-MM-DD HH:mm:ss&quot;) %&gt;</span><br><span class="line">updated: &lt;% tp.date.now(&quot;YYYY-MM-DD HH:mm:ss&quot;) %&gt;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>设置模板文件夹为_template</p>
+<img src="/archives/e12db737/image-20240718131735074.png" class="">
+<p>同时_config.yml跳过渲染</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">skip_render: </span><br><span class="line">    - &quot;_template/*&quot;</span><br><span class="line">    - &quot;.obsidian/*&quot;</span><br></pre></td></tr></table></figure>
+<p>新建博客后，点击左侧Templater符号即可插入</p>
+<img src="/archives/e12db737/image-20240718132258384.png" class="">
+<h3 id="图片粘贴"><a href="#图片粘贴" class="headerlink" title="图片粘贴"></a>图片粘贴</h3><p>想要hexo渲染图片原本不是一件容易的事情，但是可以利用obsidian的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/RainCat1998/obsidian-custom-attachment-location">Custom Attachment Location</a>插件与<a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/docs/asset-folders">Hexo asset folder机制</a>方便实现。前者会在用户向post粘贴图片时，自动创建一个post同名文件夹用来存储图片，并以相对路径应用；后者可以通过在_config.yml中设置打开post_asset_folder功能自动从同名文件夹中索引图片生成html。</p>
+<h4 id="Custom-Attachment-设置"><a href="#Custom-Attachment-设置" class="headerlink" title="Custom Attachment 设置"></a>Custom Attachment 设置</h4><img src="/archives/e12db737/image-20240718133132518.png" class="">
+<img src="/archives/e12db737/image-20240718133303105.png" class="">
+<h4 id="Hexo-Asset-Folder设置"><a href="#Hexo-Asset-Folder设置" class="headerlink" title="Hexo Asset Folder设置"></a>Hexo Asset Folder设置</h4><p>修改_config.yml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br><span class="line">marked:</span><br><span class="line">  prependRoot: true</span><br><span class="line">  postAsset: true</span><br></pre></td></tr></table></figure>
+<h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h4><img src="/archives/e12db737/image-20240718133530799.png" class="">
+<h3 id="Obsidian-Git"><a href="#Obsidian-Git" class="headerlink" title="Obsidian Git"></a>Obsidian Git</h3><p>安装<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Vinzent03/obsidian-git">Git</a>插件，按Ctrl+P，输入commit all change+push提交博客，自动发布</p>
+<h1 id="Step-3：日常管理"><a href="#Step-3：日常管理" class="headerlink" title="Step 3：日常管理"></a>Step 3：日常管理</h1><p>经过如上一番操作，日常情况就可以抛弃nodejs，在某处的新电脑上，可以先配置好git、下载好obsidian，就可以开始更新博客了！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="weixin"></i>
+            </span>
+
+            <span class="label">WeChat Subscription</span>
+          </span>
+
+          <img class="social-item-img" src="/images/weChat-pub.jpg">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/github/" rel="tag"># github</a>
+              <a href="/tags/obsidian/" rel="tag"># obsidian</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/53bd0ece.html" rel="prev" title="裸机多任务的一些摸索">
+                  <i class="fa fa-angle-left"></i> 裸机多任务的一些摸索
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/2e15e323.html" rel="next" title="芯片原厂的嵌入式软件都在干什么">
+                  芯片原厂的嵌入式软件都在干什么 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fab fa-grav"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Aemaeth0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">29k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener external nofollow noreferrer" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
