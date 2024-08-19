@@ -9,5 +9,6 @@
   "newFileFolderPath": "_posts",
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
-  "attachmentFolderPath": "./Windows下编译v0.12.0 OpenOCD"
+  "attachmentFolderPath": "./芯片量产测试流程介绍",
+  "alwaysUpdateLinks": true
 }

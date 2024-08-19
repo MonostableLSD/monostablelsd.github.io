@@ -42,9 +42,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "af897e82cdf45022",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/芯片量产测试流程介绍.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/Windows下编译v0.12.0 OpenOCD.md",
+                "file": "_posts/芯片量产测试流程介绍.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/Windows下编译v0.12.0 OpenOCD.md",
+                "file": "_posts/芯片量产测试流程介绍.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/Windows下编译v0.12.0 OpenOCD.md"
+                "file": "_posts/芯片量产测试流程介绍.md"
               }
             }
           }
@@ -172,28 +184,30 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "fc9f078d59dfcf3b",
+  "active": "af897e82cdf45022",
   "lastOpenFiles": [
-    "_posts/芯片设计公司的嵌入式软件都在干什么.md",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github.md",
-    "_posts/裸机多任务的一些摸索.md",
-    "_posts/Windows下编译v0.12.0 OpenOCD.md",
-    "_posts/Windows下编译v0.12.0 OpenOCD/image-20240809151048958.png",
-    "_posts/Windows下编译v0.12.0 OpenOCD/image-20240809150331331.png",
-    "_posts/Windows下编译v0.12.0 OpenOCD",
-    "_posts/芯片量产测试流程详解.md",
-    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719180232126.png",
-    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719150541081.png",
-    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719105006239.png",
-    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240718165441091.png",
-    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719002019629.png",
-    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719001354190.png",
-    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240718163942629.png",
-    "_posts/芯片设计公司的嵌入式软件都在干什么",
+    "_posts/芯片量产测试流程介绍/image-20240819170723279.png",
+    "_posts/芯片量产测试流程/image-20240819171059882.png",
+    "_posts/芯片量产测试流程/image-20240819171046308.png",
+    "_posts/芯片量产测试流程介绍/image-20240819162153805.jpeg",
+    "_posts/芯片量产测试流程介绍.md",
+    "tags/index.md",
     "_template/tp-hexo-post-init.md",
     "about/index.md",
     "categories/index.md",
-    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718133530799.png",
+    "_posts/数字花园搭建：Obsidian+Hexo+Github.md",
+    "_posts/芯片量产测试流程介绍",
+    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718101929351.png",
+    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718100611979.png",
+    "_posts/数字花园搭建：Obsidian+Hexo+Github/image-20240718100249490.png",
+    "_posts/Windows下编译v0.12.0 OpenOCD.md",
+    "_posts/芯片设计公司的嵌入式软件都在干什么.md",
+    "_posts/裸机多任务的一些摸索.md",
+    "_posts/Windows下编译v0.12.0 OpenOCD/image-20240809151048958.png",
+    "_posts/Windows下编译v0.12.0 OpenOCD/image-20240809150331331.png",
+    "_posts/Windows下编译v0.12.0 OpenOCD",
+    "_posts/芯片设计公司的嵌入式软件都在干什么/image-20240719180232126.png",
+    "_posts/芯片设计公司的嵌入式软件都在干什么",
     "_posts/数字花园搭建：Obsidian+Hexo+Github",
     "_posts/Test3.md",
     "_posts/Test3",
@@ -206,7 +220,6 @@
     "_posts/我的ObsidianTest",
     "_template/tp-hexo-post-init.txt",
     "_template/tp-.txt",
-    "_template/新建文本文档.txt",
     "_template/未命名.md",
     "_draft/draft/未命名.md"
   ]
