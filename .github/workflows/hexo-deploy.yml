@@ -1,41 +1,47 @@
 name: Hexo Deploy
+
 on:
   push:
     branches:
       - hexo
+  workflow_dispatch:
+
 env:
   GIT_USER: aemaeth
   GIT_EMAIL: monostablelss@gmail.com
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    concurrency:
+      group: hexo-deploy
+      cancel-in-progress: true
+
     steps:
-      - name: Checkout deploy branch
-        uses: actions/checkout@v2
+      - name: Checkout source branch
+        uses: actions/checkout@v4
         with:
           ref: hexo
-          path: ./
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 14
+          node-version: 20
+          cache: npm
 
       - name: Remove Deploy_git
-        run: |
-          rm -rf .deploy_git
+        run: rm -rf .deploy_git
 
       - name: Install dependencies
-        run: |
-          npm install && npm run build
+        run: npm ci
 
-      - name: Hexo c & g
-        run: |
-          npm run build
+      - name: Check posts
+        run: npm run check
+
+      - name: Build site
+        run: npm run build
           
-      - name: Configuration environment
+      - name: Configure SSH and Git
         env:
           HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
         run: |
@@ -47,5 +53,4 @@ jobs:
           git config --global user.email $GIT_EMAIL
 
       - name: Deploy
-        run: |
-          npm run deploy
+        run: npm run deploy

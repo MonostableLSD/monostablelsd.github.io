@@ -1,0 +1,77 @@
+// Site-level polish layered on top of NexT. Keep theme package untouched.
+
+$accent = #005caf
+$accent-soft = #e8f1fb
+$ink = #202124
+$muted = #5f6368
+
+body
+  color: $ink
+  line-height: 1.78
+
+.site-title
+  font-weight: 700
+  letter-spacing: 0
+
+.brand
+  padding-top: 8px
+  padding-bottom: 8px
+
+.menu .menu-item a
+  border-radius: 6px
+  transition: background .2s ease, color .2s ease
+
+.menu .menu-item a:hover
+  background: $accent-soft
+  color: $accent
+
+.post-block
+  border-radius: 8px
+
+.post-title
+  line-height: 1.35
+
+.post-title-link::before
+  background: $accent
+
+.post-meta
+  color: $muted
+
+.post-body
+  font-size: 1.02em
+
+.post-body h2,
+.post-body h3
+  margin-top: 2.1em
+  line-height: 1.35
+
+.post-body h2
+  border-bottom: 1px solid #e8eaed
+  padding-bottom: .35em
+
+.post-body blockquote
+  border-left-color: $accent
+  background: #f8fafc
+  color: #3c4043
+
+.post-body code
+  border-radius: 4px
+
+.post-body img
+  border-radius: 6px
+  box-shadow: 0 8px 28px rgba(60, 64, 67, .12)
+
+.sidebar-inner
+  border-radius: 8px
+
+.site-author-image
+  border: 2px solid #fff
+  box-shadow: 0 8px 24px rgba(60, 64, 67, .16)
+
+@media (max-width: 767px)
+  .post-body
+    font-size: 1em
+    text-align: start
+
+  .post-title
+    font-size: 1.45em
