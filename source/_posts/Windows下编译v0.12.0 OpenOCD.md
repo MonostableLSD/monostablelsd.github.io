@@ -1,7 +1,7 @@
 ---
 title: Windows下编译v0.12.0 OpenOCD
 categories:
-  - 嵌入式
+  - Linux 与工具链
 tags:
   - openocd
   - windows

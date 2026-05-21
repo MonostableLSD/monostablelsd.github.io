@@ -40,7 +40,7 @@ title: Article title
 date: 2026-05-20 20:00:00
 updated: 2026-05-20 20:00:00
 categories:
-  - Embedded
+  - 嵌入式软件
 tags:
   - C
   - Linux
@@ -48,13 +48,13 @@ mathjax: false
 ---
 ```
 
-Use categories as broad sections and tags as specific technologies. A practical split for this site:
+Use categories as broad sections and tags as specific technologies. Keep categories aligned with the `/start/` reading entry:
 
-- `Embedded`
-- `IC`
-- `Linux`
-- `Tools`
-- `Notes`
+- `嵌入式软件`
+- `芯片 Bring-up`
+- `量产测试`
+- `Linux 与工具链`
+- `数字花园`
 
 Keep categories broad. Use tags for searchable details such as `UART`, `I2C`, `SPI`, `OpenOCD`, `FPGA`, `Bring-up`, `ATE`, `Linux`, `Git`, and `Flash`.
 

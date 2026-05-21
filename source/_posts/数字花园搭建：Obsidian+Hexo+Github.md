@@ -1,11 +1,11 @@
 ---
 title: 数字花园搭建：Obsidian+Hexo+Github
 categories:
-  - 博客搭建
+  - 数字花园
 tags:
   - hexo
-  - github
   - obsidian
+  - github
 abbrlink: e12db737
 date: 2024-07-18 09:57:48
 ---
@@ -610,4 +610,3 @@ marked:
 # Step 3：日常管理
 经过如上一番操作，日常情况就可以抛弃nodejs，在某处的新电脑上，可以先配置好git、下载好obsidian，就可以开始更新博客了！
   
-
