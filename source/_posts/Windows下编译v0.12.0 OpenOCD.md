@@ -6,6 +6,7 @@ tags:
   - openocd
   - windows
 mathjax: true
+abbrlink: deb67521
 date: 2024-08-09 15:01:42
 updated: 2024-08-09 15:01:42
 ---
