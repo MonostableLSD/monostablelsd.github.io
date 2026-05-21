@@ -87,6 +87,7 @@ creative_commons:
 # External url should start with http:// or https://
 menu:
   home: / || fa fa-home
+  start: /start/ || fa fa-compass
   about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
@@ -278,6 +279,7 @@ reward:
 # Usage: `Key: permalink || icon` (Font Awesome)
 follow_me:
   WeChat Subscription: /images/weChat-pub.jpg || weixin
+  RSS: /atom.xml || fa fa-rss
   #Twitter: https://twitter.com/username || fab fa-twitter
   #Telegram: https://t.me/channel_name || fab fa-telegram
   #WeChat: /images/wechat_channel.jpg || fab fa-weixin

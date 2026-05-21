@@ -5,10 +5,12 @@ This repository uses `source/` as both the Hexo source directory and the Obsidia
 ## Daily Writing Flow
 
 1. Open the `source/` folder in Obsidian.
-2. Create public posts under `source/_posts/`.
-3. Use the template at `source/_template/tp-hexo-post-init.md`.
-4. Put images in an asset folder with the same name as the post.
-5. Use standard Markdown image links:
+2. Keep private notes under `source/_notes/`.
+3. Draft publishable articles under `source/_drafts/`.
+4. Move ready articles into `source/_posts/`.
+5. Use the template at `source/_template/tp-hexo-post-init.md`.
+6. Put images in an asset folder with the same name as the post.
+7. Use standard Markdown image links:
 
 ```md
 ![scope capture](Post Title/image.png)
@@ -21,10 +23,11 @@ Avoid Obsidian-only embeds such as `![[image.png]]` and wiki links such as `[[no
 ```bash
 npm run check
 npm run build
+npm run preview
 npm run server
 ```
 
-`npm run check` catches missing front matter and Obsidian-only links before publishing.
+`npm run check` catches missing front matter, duplicate explicit `abbrlink` values, Obsidian-only links, and missing local images before publishing.
 Completely empty Markdown files are ignored by the checker, but they should be renamed, completed, moved to drafts, or removed before publishing.
 
 ## Content Model
@@ -53,6 +56,26 @@ Use categories as broad sections and tags as specific technologies. A practical 
 - `Tools`
 - `Notes`
 
+Keep categories broad. Use tags for searchable details such as `UART`, `I2C`, `SPI`, `OpenOCD`, `FPGA`, `Bring-up`, `ATE`, `Linux`, `Git`, and `Flash`.
+
+## Article Shape
+
+Use this structure for engineering notes when it fits:
+
+```md
+## Background
+## Symptom
+## Environment
+## Debugging Process
+## Key Takeaways
+## Reusable Commands
+## References
+```
+
+The point is to make each post useful after the immediate problem has faded from memory.
+
 ## Publishing
 
 Push the Hexo source branch to `hexo`. GitHub Actions installs dependencies with `npm ci`, runs the post checker, builds the static site, and deploys the generated output through `hexo-deployer-git`.
+
+The Hexo build generates `atom.xml` and `sitemap.xml` through `scripts/site-generators.js`, without extra npm dependencies.

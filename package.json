@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "build": "hexo clean && hexo generate",
-    "check": "node scripts/check-posts.js",
+    "check": "node tools/check-posts.js",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
+    "preview": "hexo clean && hexo generate && hexo server",
     "server": "hexo server",
     "draft": "hexo new draft",
     "post": "hexo new post"
