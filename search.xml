@@ -12,7 +12,7 @@
     <content><![CDATA[<p>在研究JTAG的过程中，需要使用daplink生成jtag master的波形给jtag ip，因此研究了一下openocd+daplink，不得不吐槽openocd这个项目真是一言难尽，记录一下Windows环境下编译openocd的过程。我发现如果用公司加密电脑，很有可能遇到不过编译器检查，这一步会生成一个conftest.c并尝试编译它来验证编译器是否ok，但是这个生成的会被加密软件加锁，导致fail，所以把这个坑分享出来。</p>
 <span id="more"></span>
 <h1 id="安装Msys2-工具链"><a href="#安装Msys2-工具链" class="headerlink" title="安装Msys2+工具链"></a>安装Msys2+工具链</h1><p><a href="https://www.msys2.org/">https://www.msys2.org/</a> 下载安装包并安装 一路next即可 注意打开 Mingw64这个shell</p>
-<img src="/archives/undefined/image-20240809150331331.png" class="">
+<img src="/archives/deb67521/image-20240809150331331.png" class="">
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pacman -Syu</span><br><span class="line">pacman -S libtool autoconf automake texinfo pkg-config make autogen git unzip bzip2 base-devel </span><br></pre></td></tr></table></figure>
 <p>64bit:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pacman -S mingw-w64-x86_64-toolchain mingw-w64-x86_64-libusb mingw-w64-x86_64-libusb-compat-git mingw-w64-x86_64-hidapi mingw-w64-x86_64-libftdi mingw-w64-x86_64-capstone</span><br></pre></td></tr></table></figure>
@@ -37,7 +37,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adapter driver cmsis-dap</span><br><span class="line">transport select jtag</span><br><span class="line"></span><br><span class="line">adapter speed 1000</span><br><span class="line"></span><br><span class="line">set _CHINPNAME custom</span><br><span class="line"></span><br><span class="line">jtag newtap custom tap -irlen 8  -expected-id 0x00000000</span><br><span class="line"></span><br><span class="line">init</span><br><span class="line"></span><br><span class="line"># idcode命令</span><br><span class="line">irscan custom.tap 0xFE</span><br><span class="line">drscan custom.tap 32 0x00000000 </span><br><span class="line"></span><br><span class="line"># bypass命令</span><br><span class="line">irscan custom.tap 0xFF</span><br><span class="line">drscan custom.tap 32 0x55555555</span><br><span class="line">drscan custom.tap 32 0xAAAAAAAA</span><br><span class="line">drscan custom.tap 32 0x55555555</span><br><span class="line"></span><br><span class="line"># 选通jtag2apb 向0x00600028写入0x55bbcc11</span><br><span class="line">irscan custom.tap 0x00</span><br><span class="line">drscan custom.tap 8 0xF0</span><br><span class="line">drscan custom.tap 40 0x0000600028 </span><br><span class="line">drscan custom.tap 32 0x55bbcc11</span><br><span class="line">drscan custom.tap 35 0x0 #respond</span><br><span class="line"></span><br><span class="line"># 选通jtag2apb 从0x00600028读取</span><br><span class="line">irscan custom.tap 0x00</span><br><span class="line">drscan custom.tap 8 0xF1</span><br><span class="line">drscan custom.tap 40 0x0000600028 </span><br><span class="line">drscan custom.tap 35 0x0 #respond</span><br></pre></td></tr></table></figure>
 <h1 id="telnet连接OpenOCD命令行"><a href="#telnet连接OpenOCD命令行" class="headerlink" title="telnet连接OpenOCD命令行"></a>telnet连接OpenOCD命令行</h1><p>openocd启动后会本地起一个localhost：4444端口的telnet server，可以通过windows自带的telnet连接进去以实时输入openocd命令</p>
 <p>前提是打开windows的telnet客户端功能：</p>
-<img src="/archives/undefined/image-20240809151048958.png" class="">
+<img src="/archives/deb67521/image-20240809151048958.png" class="">
 
 <p>直接win+r cmd启动！</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">telnet localhost 4444</span><br></pre></td></tr></table></figure>
@@ -163,10 +163,10 @@
   <entry>
     <title>芯片原厂的嵌入式软件都在干什么</title>
     <url>/archives/2e15e323.html</url>
-    <content><![CDATA[<img src="/archives/undefined/image-20240718165441091.png" class="">
+    <content><![CDATA[<img src="/archives/2e15e323/image-20240718165441091.png" class="">
 <p>在学校每天call stm32 hal库的时候，总是在想，芯片原厂的软件工程师是不是特别nb。我对体系结构、芯片内部的细节这些东西有着天然的好奇心，但工科的知识不是靠看一两本书就能掌握的，要实践才能螺旋提升认识。毕业后运气好进了一个消费电子的芯片部门，终于小小窥见芯片软件的一些奥妙，它是矛盾的，芯片内部的这些智慧结晶有着强烈的赛博美感，但手里搬砖的活却多少有些苦逼，让我们一起看看芯片设计公司的嵌入式软件都在干什么。</p>
 <span id="more"></span>
-<h1 id="工作内容概述"><a href="#工作内容概述" class="headerlink" title="工作内容概述"></a>工作内容概述</h1><img src="/archives/undefined/image-20240719002019629.png" class="">
+<h1 id="工作内容概述"><a href="#工作内容概述" class="headerlink" title="工作内容概述"></a>工作内容概述</h1><img src="/archives/2e15e323/image-20240719002019629.png" class="">
 <blockquote>
 <p><a href="https://www.instagram.com/ic.designer.meme/">ic.designer.meme instagram</a></p>
 </blockquote>
@@ -181,17 +181,17 @@
 <li><strong>SDK&#x2F;HAL软件包交付</strong>：芯片卖给客户，总不能让客户照着寄存器手册做应用，所以要编写SDK及其文档，最好能写一些应用demo<br>另外，还有一些上位机、自动化脚本的开发，这些一般不是release给客户级别的，借助ChatGPT和一点点QT&#x2F;C#&#x2F;Python基础就可以做到。</li>
 </ol>
 <h1 id="FPGA原型验证"><a href="#FPGA原型验证" class="headerlink" title="FPGA原型验证"></a>FPGA原型验证</h1><h2 id="Testcase表格"><a href="#Testcase表格" class="headerlink" title="Testcase表格"></a>Testcase表格</h2><p>一个新芯片项目kickoff时，一般前期的市场分析、架构设计差不多就做完了。RTL未动，文档先行。数字前端的哥们会开始写各个模块&#x2F;IP的微架构文档（Micro Architecture Spec），等他们写好MAS，软件就可以开始编写TestCase。具体来说，TestCase就是一个验证计划excel，根据IP功能规划FPGA环境上要验什么，一个UART的TestCase例子：</p>
-<img src="/archives/undefined/image-20240719105006239.png" class="">
+<img src="/archives/2e15e323/image-20240719105006239.png" class="">
 <p>什么样的TestCase才算一个好的TestCase？我认为这是一个吃经验的事情，必须对设计内部有一定理解，并且有大局观能够掌控好一种验证的边界感，要时刻铭记”尽快成功流片“的目标，要尽可能验到每一种实际可能出现的情况，但不能异想天开整一些非常极端钻牛角尖的case。<br>接着就是写一个初步的测试代码，为了保证rtl freeze deadline前能顺利验完，验证代码不用特别考虑代码可移植性等面向用户的特性，不过如果后面SDK阶段想要少做一些重复工作，可以自己权衡要做到什么程度，这一阶段的首要目标是验证功能，如果一个简单的模块要写好几天驱动代码，会被PM蛐蛐的，SDK那种架构严谨的代码可以等到rtl freeze后再慢慢整。因为这个时候可能还没有具体的rtl 设计，因此只是一个初步的验证代码框架。<br>做好TestCase和初步代码，一般会拉着软件同事和前端设计一起review一下，看下有没有什么遗漏的点。</p>
 <h2 id="等待Bitfile"><a href="#等待Bitfile" class="headerlink" title="等待Bitfile"></a>等待Bitfile</h2><p>前期一般不会很快拿到Bitfile，RTL IP Coding完还要集成，集成完还要综合，<del>这个时间难道可以摸鱼挂机吗（狂喜）</del>？除了看MAS、写TestCase及代码，我们还可以看下架构文档，进一步了解芯片的使用场景。此外，我们EDA验证同事还帮忙搭建了一个名为”Quattro“的VCS环境，用于在综合前进行top级C仿真，这个平台可以吃我们编译出的程序bin文件，启动CPU执行，并dump出详细的fsdb波形，与FPGA验证形成了互补，后期有一些FPGA验证过程遇到的设计bug，如果要综合出带debug ILA的bit会很慢，Quattro更方便看到内部的信号（虽然top级VCS仿真也要跑几个小时）。<br>总之，这是一段相对不忙的时间。</p>
 <h2 id="正式FPGA验证"><a href="#正式FPGA验证" class="headerlink" title="正式FPGA验证"></a>正式FPGA验证</h2><p>敲锣打鼓FPGA工程师终于release了第一个版本的bitfile。Vivado，启动！烧录bit进FPGA平台，就可以把它当作一颗SOC使用了，一般最先开始的是jtag和cpu启动，负责启动的同事要保证工程能run到main函数，接着负责uart的同事确保串口能正常使用，以便打印调试信息，这样其他哥们就能开始各个模块的验证了。<br>需要注意FPGA环境与真实环境会不一样，一定要注意分频可能会导致的问题，比如FPGA上这个CLK下一切正常，结果客户板子上晶振不一样，导致内部分频分不出精准的CLK，那就寄了。<br>图为[S2C S7 FPAG验证平台](<a href="https://www.s2ceda.com/ch/product-prototyping-ls-3">一体化原型验证平台满足各种IC设计验证需求 | 思尔芯S2C-思尔芯 | S2C (s2ceda.com)</a>)</p>
-<img src="/archives/undefined/image-20240719150541081.png" class="" title="S2C S7验证平台">
+<img src="/archives/2e15e323/image-20240719150541081.png" class="" title="S2C S7验证平台">
 <h2 id="Bug提交定位"><a href="#Bug提交定位" class="headerlink" title="Bug提交定位"></a>Bug提交定位</h2><p>验证过程中遇到问题提bugzilla给前端同事，必要时联合eda验证与前端一起定位bug，修改后回归验证，整个过程要记录在调试验证文档</p>
 <h2 id="自动回归验证"><a href="#自动回归验证" class="headerlink" title="自动回归验证"></a>自动回归验证</h2><p>在验证过程中，bit版本会不停的更新，不论更新是否涉及到咱们负责的模块都应该再回归验证一遍，如果每个case都要手动比对波形来测，那真的很Dirty Work，此时testcase代码自动化就很重要，必须要开动脑筋做成自动化测试，在硬件连接符合要求的情况下，每天在一台fpga上自动跑尽可能多的testcase的回归，确保bit更新没有引入新的问题。</p>
 <h2 id="场景验证"><a href="#场景验证" class="headerlink" title="场景验证"></a>场景验证</h2><p>按照项目实际需求，会有多个模块+外设联合工作的场景验证。在rtl freeze以前，必须完成所有ip的验证以及基本的系统级场景验证，工期比较赶的情况下，全面的场景验证将在rtl freeze后进行。</p>
 <p>FPGA验证与EDA验证（前仿）作为数字前端设计的双保险，开始做TestCase时不能互相参考，以免思路重复，一些边角case两边都没验到，后期可以互相看下，以免出现我以为他验，他以为我验了这种比较尴尬的情况。流片的压力还是比较大的，但相比设计哥们的压力小一点，工资也比设计哥们低一点。这就是责任的问题，在企业，责任越大价值越大。芯片研发本就具有研发难度与流片风险，作为工程师，有技术底气、做好细节，就不怕担责。</p>
 <h1 id="Bringup-SDK软件包交付"><a href="#Bringup-SDK软件包交付" class="headerlink" title="Bringup &amp; SDK软件包交付"></a>Bringup &amp; SDK软件包交付</h1><h2 id="第一次点亮"><a href="#第一次点亮" class="headerlink" title="第一次点亮"></a>第一次点亮</h2><p>rtl freeze后，后端的哥们还有很多工作，最后做出gds文件给Fab厂，Fab厂制造出wafer后给封测厂进行封测，如果一切顺利，将在几个月后收到实体的芯片。将芯片装上socket EVB，Bringup最刺激的时候到了，上电看芯片能不能起来，这种时候所有人都聚集在实验室看软件操作，硬件的哥们会仔细检查电源、晶振是否OK，做启动的软件要先看jtag能不能识别cpu。<br>公司的Socket EVB不方便拍照，这里放上来NXP的一张SocetEVB，结构都比较类似。</p>
-<img src="/archives/undefined/image-20240719180232126.png" class="">
+<img src="/archives/2e15e323/image-20240719180232126.png" class="">
 <h2 id="功能与性能"><a href="#功能与性能" class="headerlink" title="功能与性能"></a>功能与性能</h2><p>芯片启动后，进入后续的Bringup流程，会根据FPGA验证阶段的分工，先验功能再验性能。功能验证从IP到场景，性能会测比如功耗等参数是否达到Spec要求。<br>这个过程中，软件就会开始修建SDK了，在验证代码的基础上进行修改裁剪，保证风格统一、接口简洁。对修改好的代码在fpga上进行验证，验证重点在于确保接口没有严重bug（这里其实需要专业的软件测试流程）。最后编写从系统到单个ip的软件用户手册，通常参考mcu大厂的一些用户手册。</p>
 ]]></content>
       <categories>
@@ -206,7 +206,7 @@
   <entry>
     <title>芯片量产测试流程介绍</title>
     <url>/archives/3bc29a18.html</url>
-    <content><![CDATA[<img src="/archives/undefined/image-20240819162153805.jpeg" class="">
+    <content><![CDATA[<img src="/archives/3bc29a18/image-20240819162153805.jpeg" class="">
 <p>芯片产业分为设计、制造、封装三大流程，在封装后还会进行量产测试，因此又称为封测流程。今年上半年我在公司负责ASIC SOC的量产测试工程，这里总结一下项目流程，以便日后项目参考。</p>
 <span id="more"></span>
 
@@ -315,7 +315,7 @@
 <p>这两步做完，基本可以确定2-3个机台型号并且确定对应的同测site数，通过成本估算可以出一个trade off比较方案。</p>
 <h2 id="测试硬件制造外发"><a href="#测试硬件制造外发" class="headerlink" title="测试硬件制造外发"></a>测试硬件制造外发</h2><p>Test Plan确定、机台选型确定后，测试硬件方案基本框架就定下了，对应的测试硬件也不会有太多可选。比如die上有800多个pad的芯片如果做CP，肯定无法做悬臂针，必须上MLO垂直针，不同供应商的垂直针技术还不太一样，价格也有差异。除了CP针的方案，还有机台连接方案：是cable mount、pogo tower还是direct docking？这些芯片信息和Test Plan大致信息同步给供应商，他们一般会要求量产测试工程师填一个产品信息表格，根据对齐的信息会帮忙给一个大致的参考方案。</p>
 <p>因此这时的主要工作是和各个供应商沟通，沟通方案细节、价格、交期等事项。大部分的针卡、LB外包商都需要提供原理图，有些也包原理图设计，但无论哪种都需要有一定经验的硬件工程师进行review。如果项目非常赶工，要求在Test Plan没有完全敲定的情况下进行硬件外发，那么可以多做冗余设计，留好余地。与芯片流片类似，需要实体制造的device都需要比较长的准备时间，因此这个时间最好能和tape out重叠，并且尽快发包出去，量产测试工程师还可以并行写代码。</p>
-<img src="/archives/undefined/image-20240819170723279.png" class="">
+<img src="/archives/3bc29a18/image-20240819170723279.png" class="">
 
 <p>CP的方案除了ProbeCard的设计制造，还有针的制造，部分供应商的MLO针制作不在国内，需要比较长的交期，要求量产测试工程师、PM安排好项目进度。</p>
 <p>FT的方案除了LoadBoard的设计，还有Socket、Changkit的制造，有些项目中是由封测厂协助发包，务必确认好三方间的信息，千万注意不要搞出socket尺寸与changekit对不上的这种问题。因此，外发硬件制造完成后，一定要第一时间进行QC，如果有问题返工会对项目进度造成严重影响。</p>
