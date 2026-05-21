@@ -11,11 +11,6 @@ comments: false
 - 外设驱动、裸机程序、RTOS 对接、调试工具链
 - 关注 UART、I2C、SPI、ADC、Flash、OpenOCD、FPGA 验证和 Bring-up 等常见问题
 
-## [芯片 Bring-up](/categories/芯片-Bring-up/)
-
-- 从 FPGA 验证到回片后的外设验证
-- 后续用于收拢更聚焦的回片验证、问题定位和 bring-up 复盘
-
 ## [量产测试](/categories/量产测试/)
 
 - FT/CP 流程、ATE 平台、测试项设计和调试记录

@@ -51,7 +51,6 @@ mathjax: false
 Use categories as broad sections and tags as specific technologies. Keep categories aligned with the `/start/` reading entry:
 
 - `嵌入式软件`
-- `芯片 Bring-up`
 - `量产测试`
 - `Linux 与工具链`
 - `数字花园`
