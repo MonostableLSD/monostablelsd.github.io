@@ -6,6 +6,9 @@ on:
       - hexo
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 env:
   GIT_USER: aemaeth
   GIT_EMAIL: monostablelss@gmail.com
@@ -40,17 +43,16 @@ jobs:
 
       - name: Build site
         run: npm run build
-          
-      - name: Configure SSH and Git
-        env:
-          HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
+
+      - name: Deploy generated site
         run: |
-          mkdir -p ~/.ssh/
-          echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
-
-      - name: Deploy
-        run: npm run deploy
+          git fetch origin master --depth=1
+          git worktree add /tmp/pages origin/master
+          find /tmp/pages -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -R public/. /tmp/pages/
+          cd /tmp/pages
+          git add -A
+          git commit -m "Site updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" || exit 0
+          git push origin HEAD:master
