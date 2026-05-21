@@ -96,7 +96,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-start"><a href="/start/" rel="section"><i class="fa fa-compass fa-fw"></i>start</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -168,12 +168,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -251,7 +251,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/IC%E5%B0%81%E6%B5%8B/" itemprop="url" rel="index"><span itemprop="name">IC封测</span></a>
+          <a href="/categories/%E9%87%8F%E4%BA%A7%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">量产测试</span></a>
         </span>
     </span>
 
@@ -378,7 +378,7 @@
 <p>CP的方案除了ProbeCard的设计制造，还有针的制造，部分供应商的MLO针制作不在国内，需要比较长的交期，要求量产测试工程师、PM安排好项目进度。</p>
 <p>FT的方案除了LoadBoard的设计，还有Socket、Changkit的制造，有些项目中是由封测厂协助发包，务必确认好三方间的信息，千万注意不要搞出socket尺寸与changekit对不上的这种问题。因此，外发硬件制造完成后，一定要第一时间进行QC，如果有问题返工会对项目进度造成严重影响。</p>
 <h2 id="特殊治具定制"><a href="#特殊治具定制" class="headerlink" title="特殊治具定制"></a>特殊治具定制</h2><p>除了以上描述的常规量产测试硬件准备，sensor类芯片往往还需要光学环境，这些在Test Plan制定时最好把光学环境细节确定清楚，要充分考虑机械结构约束，同时如果治具需要固定在针卡、loadboard，那么方案也要同步给外包。</p>
-<p>在无锡积高封测听了合肥晶测的光学测试技术介绍，关于光学治具的方案，也可以联合有能力的封测厂及其供应商一起联合制定。</p>
+<p>在无锡积高封测听了合肥晶测的光学测试技术介绍，关于光学治具的方案，也可以联合有能力的封测厂及其供应商一起制定。</p>
 <h1 id="Step3-offline编写ATE测试程序"><a href="#Step3-offline编写ATE测试程序" class="headerlink" title="Step3 offline编写ATE测试程序"></a>Step3 offline编写ATE测试程序</h1><p>理论上只要机台选型结束，ATE工程就可以开始搭建了。各家ATE使用的语言、开发环境都不太一样，但原理相似。在这个阶段主要要做3件事情：</p>
 <ol>
 <li>转换DFT pattern</li>
@@ -423,6 +423,16 @@
           </span>
 
           <img class="social-item-img" src="/images/weChat-pub.jpg">
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
       </div>
   </div>
 </div>
