@@ -11,4 +11,7 @@ public/
 .stignore
 source/.obsidian/workspace.json
 source/.obsidian/workspace-mobile.json
+source/.obsidian/graph.json
 source/_notes/private/
+.agents/
+skills-lock.json
